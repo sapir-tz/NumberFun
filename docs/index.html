@@ -543,51 +543,53 @@
             }
         };
 
-        // Speech synthesis
-        const synth = window.speechSynthesis;
-        let hebrewVoice = null;
-        let englishVoice = null;
+        // Audio playback using pre-recorded high-quality voices
+        const audioCache = {};
+        const encouragementFiles = ['great', 'wonderful', 'welldone', 'amazing', 'yay', 'champ'];
 
-        // Find the best voices for each language
-        function loadVoices() {
-            const voices = synth.getVoices();
+        // Preload all audio files
+        function preloadAudio() {
+            const numberFiles = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+            const phraseFiles = [...encouragementFiles, 'tryagain'];
+            const allFiles = [...numberFiles, ...phraseFiles];
+            const langs = ['he', 'en'];
 
-            // Find Hebrew voice - prefer female voices as they're often clearer for kids
-            hebrewVoice = voices.find(v => v.lang === 'he-IL' && v.name.includes('Female')) ||
-                          voices.find(v => v.lang === 'he-IL') ||
-                          voices.find(v => v.lang.startsWith('he'));
-
-            // Find English voice - prefer Samantha or other kid-friendly voices
-            englishVoice = voices.find(v => v.name === 'Samantha') ||
-                           voices.find(v => v.lang === 'en-US' && v.name.includes('Female')) ||
-                           voices.find(v => v.lang === 'en-US') ||
-                           voices.find(v => v.lang.startsWith('en'));
+            langs.forEach(lang => {
+                allFiles.forEach(file => {
+                    const key = `${lang}_${file}`;
+                    audioCache[key] = new Audio(`audio/${lang}/${file}.mp3`);
+                    audioCache[key].load();
+                });
+            });
         }
 
-        // Load voices when available
-        loadVoices();
-        if (synth.onvoiceschanged !== undefined) {
-            synth.onvoiceschanged = loadVoices;
-        }
-
-        function speak(text) {
-            synth.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-
-            if (currentLang === 'he') {
-                utterance.lang = 'he-IL';
-                utterance.rate = 0.75;  // Slower for clearer Hebrew
-                utterance.pitch = 1.1;
-                if (hebrewVoice) utterance.voice = hebrewVoice;
-            } else {
-                utterance.lang = 'en-US';
-                utterance.rate = 0.8;
-                utterance.pitch = 1.2;
-                if (englishVoice) utterance.voice = englishVoice;
+        // Play audio file
+        function playAudio(filename) {
+            const key = `${currentLang}_${filename}`;
+            if (audioCache[key]) {
+                audioCache[key].currentTime = 0;
+                audioCache[key].play().catch(e => console.log('Audio play failed:', e));
             }
-
-            synth.speak(utterance);
         }
+
+        // Speak a number (1-10)
+        function speakNumber(num) {
+            playAudio(num.toString());
+        }
+
+        // Speak random encouragement
+        function speakEncouragement() {
+            const phrase = encouragementFiles[Math.floor(Math.random() * encouragementFiles.length)];
+            playAudio(phrase);
+        }
+
+        // Speak try again
+        function speakTryAgain() {
+            playAudio('tryagain');
+        }
+
+        // Initialize audio on load
+        preloadAudio();
 
         function setLanguage(lang) {
             currentLang = lang;
@@ -661,7 +663,7 @@
                 }, i * 100);
             }
 
-            speak(translations[currentLang].numberWords[num]);
+            speakNumber(num);
         }
 
         // Counting Game
@@ -708,7 +710,7 @@
                 celebrate();
             } else {
                 btn.classList.add('wrong');
-                speak(translations[currentLang].tryAgain);
+                speakTryAgain();
                 setTimeout(() => btn.classList.remove('wrong'), 500);
             }
         }
@@ -782,7 +784,7 @@
                 celebrate();
             } else {
                 btn.classList.add('wrong');
-                speak(translations[currentLang].tryAgain);
+                speakTryAgain();
                 setTimeout(() => btn.classList.remove('wrong'), 500);
             }
         }
@@ -819,8 +821,7 @@
                 celebration.appendChild(star);
             }
 
-            const encouragement = t.encouragements[Math.floor(Math.random() * t.encouragements.length)];
-            speak(encouragement);
+            speakEncouragement();
 
             setTimeout(() => {
                 celebration.classList.remove('active');
