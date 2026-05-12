@@ -537,21 +537,55 @@
                 tapNumber: '!לחץ על מספר',
                 howMany: 'כמה',
                 greatJob: '!כל הכבוד',
-                tryAgain: '!נסה שוב',
-                numberWords: ['', 'אחת', 'שתיים', 'שלוש', 'ארבע', 'חמש', 'שש', 'שבע', 'שמונה', 'תשע', 'עשר'],
-                encouragements: ['כל הכבוד!', 'מצוין!', 'עשית את זה!', 'מדהים!', 'סופר!', 'יש!']
+                tryAgain: 'נסה שוב',
+                numberWords: ['', 'אחד', 'שתיים', 'שלוש', 'ארבע', 'חמש', 'שש', 'שבע', 'שמונה', 'תשע', 'עשר'],
+                encouragements: ['יופי!', 'מעולה!', 'כל הכבוד!', 'נהדר!', 'יאיי!', 'אלוף!']
             }
         };
 
         // Speech synthesis
         const synth = window.speechSynthesis;
+        let hebrewVoice = null;
+        let englishVoice = null;
+
+        // Find the best voices for each language
+        function loadVoices() {
+            const voices = synth.getVoices();
+
+            // Find Hebrew voice - prefer female voices as they're often clearer for kids
+            hebrewVoice = voices.find(v => v.lang === 'he-IL' && v.name.includes('Female')) ||
+                          voices.find(v => v.lang === 'he-IL') ||
+                          voices.find(v => v.lang.startsWith('he'));
+
+            // Find English voice - prefer Samantha or other kid-friendly voices
+            englishVoice = voices.find(v => v.name === 'Samantha') ||
+                           voices.find(v => v.lang === 'en-US' && v.name.includes('Female')) ||
+                           voices.find(v => v.lang === 'en-US') ||
+                           voices.find(v => v.lang.startsWith('en'));
+        }
+
+        // Load voices when available
+        loadVoices();
+        if (synth.onvoiceschanged !== undefined) {
+            synth.onvoiceschanged = loadVoices;
+        }
 
         function speak(text) {
             synth.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
-            utterance.rate = 0.8;
-            utterance.pitch = 1.2;
-            utterance.lang = currentLang === 'he' ? 'he-IL' : 'en-US';
+
+            if (currentLang === 'he') {
+                utterance.lang = 'he-IL';
+                utterance.rate = 0.75;  // Slower for clearer Hebrew
+                utterance.pitch = 1.1;
+                if (hebrewVoice) utterance.voice = hebrewVoice;
+            } else {
+                utterance.lang = 'en-US';
+                utterance.rate = 0.8;
+                utterance.pitch = 1.2;
+                if (englishVoice) utterance.voice = englishVoice;
+            }
+
             synth.speak(utterance);
         }
 
