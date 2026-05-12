@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Number Fun">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔢</text></svg>">
+    <title>Number Fun!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Rounded', sans-serif;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+
+        .screen {
+            display: none;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            padding: 20px;
+            padding-top: max(20px, env(safe-area-inset-top));
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
+        }
+
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Home Screen */
+        #home {
+            background: linear-gradient(135deg, rgba(147, 112, 219, 0.4), rgba(100, 149, 237, 0.4), rgba(0, 206, 209, 0.4));
+        }
+
+        .title {
+            font-size: clamp(40px, 10vw, 70px);
+            font-weight: 800;
+            background: linear-gradient(90deg, #9370DB, #4169E1, #00CED1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(255,255,255,0.5);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .game-modes {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .mode-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .mode-btn:active {
+            transform: scale(0.9);
+        }
+
+        .mode-icon {
+            width: clamp(100px, 25vw, 160px);
+            height: clamp(100px, 25vw, 160px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(50px, 12vw, 80px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .mode-icon.blue { background: linear-gradient(135deg, #4169E1, #1E90FF); }
+        .mode-icon.green { background: linear-gradient(135deg, #32CD32, #00FA9A); }
+        .mode-icon.orange { background: linear-gradient(135deg, #FF8C00, #FFD700); }
+
+        .mode-label {
+            font-size: clamp(20px, 5vw, 32px);
+            font-weight: 700;
+            color: #333;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Game Screens */
+        #explore { background: linear-gradient(135deg, rgba(0, 206, 209, 0.3), rgba(147, 112, 219, 0.3)); }
+        #counting { background: linear-gradient(135deg, rgba(50, 205, 50, 0.3), rgba(255, 215, 0, 0.3), rgba(255, 165, 0, 0.3)); }
+        #math { background: linear-gradient(135deg, rgba(255, 165, 0, 0.3), rgba(255, 105, 180, 0.3), rgba(147, 112, 219, 0.3)); }
+
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .home-btn, .refresh-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        .home-btn:active, .refresh-btn:active {
+            transform: scale(0.9);
+        }
+
+        .home-btn { background: linear-gradient(135deg, #9370DB, #BA55D3); }
+        .refresh-btn { background: linear-gradient(135deg, #FF8C00, #FFD700); }
+
+        .score {
+            background: rgba(255,255,255,0.9);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 28px;
+            font-weight: 700;
+            color: #FF8C00;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .score::before {
+            content: '⭐ ';
+        }
+
+        /* Number Explore */
+        .number-display {
+            font-size: clamp(100px, 30vw, 180px);
+            font-weight: 800;
+            background: linear-gradient(135deg, #FF8C00, #FF69B4, #9370DB);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: bounce 0.5s ease-in-out infinite alternate;
+            margin: 20px 0;
+        }
+
+        @keyframes bounce {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        .objects-display {
+            font-size: clamp(40px, 10vw, 60px);
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .object-item {
+            animation: popIn 0.4s ease-out backwards;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .number-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            width: 100%;
+            max-width: 600px;
+            margin-top: auto;
+        }
+
+        .number-tile {
+            aspect-ratio: 1;
+            border-radius: 20px;
+            border: none;
+            font-size: clamp(30px, 8vw, 50px);
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        .number-tile:active {
+            transform: scale(1.1);
+        }
+
+        .number-tile:nth-child(1) { background: linear-gradient(135deg, #FF6B6B, #FF8E8E); }
+        .number-tile:nth-child(2) { background: linear-gradient(135deg, #FF8C00, #FFB347); }
+        .number-tile:nth-child(3) { background: linear-gradient(135deg, #FFD700, #FFEC8B); }
+        .number-tile:nth-child(4) { background: linear-gradient(135deg, #32CD32, #7CFC00); }
+        .number-tile:nth-child(5) { background: linear-gradient(135deg, #00CED1, #48D1CC); }
+        .number-tile:nth-child(6) { background: linear-gradient(135deg, #4169E1, #6495ED); }
+        .number-tile:nth-child(7) { background: linear-gradient(135deg, #9370DB, #BA55D3); }
+        .number-tile:nth-child(8) { background: linear-gradient(135deg, #FF69B4, #FFB6C1); }
+        .number-tile:nth-child(9) { background: linear-gradient(135deg, #3CB371, #98FB98); }
+        .number-tile:nth-child(10) { background: linear-gradient(135deg, #6A5ACD, #9370DB); }
+
+        /* Counting & Math Games */
+        .question {
+            font-size: clamp(28px, 7vw, 45px);
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .animals-container, .equation-visual {
+            background: rgba(255,255,255,0.8);
+            border-radius: 30px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .animal-item, .math-object {
+            font-size: clamp(50px, 15vw, 80px);
+            animation: popIn 0.4s ease-out backwards;
+        }
+
+        .equation-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            background: rgba(255,255,255,0.9);
+            padding: 20px 30px;
+            border-radius: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+
+        .equation-num {
+            font-size: clamp(40px, 12vw, 70px);
+            font-weight: 800;
+        }
+
+        .equation-num.first { color: #FF8C00; }
+        .equation-num.second { color: #9370DB; }
+        .equation-num.unknown { color: #4169E1; }
+        .equation-op { font-size: clamp(35px, 10vw, 60px); font-weight: 700; color: #FF69B4; }
+
+        .answer-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: auto;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .answer-btn {
+            width: clamp(90px, 22vw, 130px);
+            height: clamp(90px, 22vw, 130px);
+            border-radius: 50%;
+            border: none;
+            font-size: clamp(40px, 10vw, 65px);
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        .answer-btn:active {
+            transform: scale(1.1);
+        }
+
+        .answer-btn.wrong {
+            animation: shake 0.5s ease-in-out;
+            box-shadow: 0 0 20px red;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0); }
+            25% { transform: rotate(-10deg) scale(0.9); }
+            75% { transform: rotate(10deg) scale(0.9); }
+        }
+
+        .answer-btn:nth-child(1) { background: linear-gradient(135deg, #FF6B6B, #FF8E8E); }
+        .answer-btn:nth-child(2) { background: linear-gradient(135deg, #32CD32, #7CFC00); }
+        .answer-btn:nth-child(3) { background: linear-gradient(135deg, #4169E1, #6495ED); }
+
+        /* Celebration */
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .celebration.active {
+            display: flex;
+        }
+
+        .celebration-emoji {
+            font-size: 120px;
+            animation: celebratePop 0.5s ease-out;
+        }
+
+        .celebration-text {
+            font-size: clamp(40px, 12vw, 70px);
+            font-weight: 800;
+            background: linear-gradient(90deg, #FFD700, #FF8C00, #FF69B4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-top: 20px;
+            animation: celebratePop 0.6s ease-out 0.2s backwards;
+        }
+
+        @keyframes celebratePop {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        .stars-burst {
+            position: absolute;
+            font-size: 40px;
+            animation: starBurst 1s ease-out forwards;
+        }
+
+        @keyframes starBurst {
+            to { transform: scale(1.5); opacity: 0; }
+        }
+
+        /* Prompt text */
+        .tap-prompt {
+            font-size: 80px;
+            opacity: 0.5;
+            margin: 40px 0;
+        }
+
+        .game-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Home Screen -->
+    <div id="home" class="screen active">
+        <div class="title">🎉 Number Fun! 🎉</div>
+        <div class="game-modes">
+            <div class="mode-btn" onclick="showScreen('explore')">
+                <div class="mode-icon blue">🔢</div>
+                <div class="mode-label">Numbers</div>
+            </div>
+            <div class="mode-btn" onclick="showScreen('counting')">
+                <div class="mode-icon green">🐻</div>
+                <div class="mode-label">Count</div>
+            </div>
+            <div class="mode-btn" onclick="showScreen('math')">
+                <div class="mode-icon orange">➕</div>
+                <div class="mode-label">Add</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Number Explore Screen -->
+    <div id="explore" class="screen">
+        <div class="header">
+            <button class="home-btn" onclick="showScreen('home')">🏠</button>
+            <div class="tap-prompt-text" style="font-size: 28px; font-weight: 700; color: #9370DB;">Tap a Number!</div>
+            <div style="width: 60px;"></div>
+        </div>
+        <div class="game-area">
+            <div id="exploreDisplay" class="tap-prompt">👆</div>
+            <div id="exploreObjects" class="objects-display"></div>
+        </div>
+        <div class="number-grid">
+            <button class="number-tile" onclick="exploreNumber(1)">1</button>
+            <button class="number-tile" onclick="exploreNumber(2)">2</button>
+            <button class="number-tile" onclick="exploreNumber(3)">3</button>
+            <button class="number-tile" onclick="exploreNumber(4)">4</button>
+            <button class="number-tile" onclick="exploreNumber(5)">5</button>
+            <button class="number-tile" onclick="exploreNumber(6)">6</button>
+            <button class="number-tile" onclick="exploreNumber(7)">7</button>
+            <button class="number-tile" onclick="exploreNumber(8)">8</button>
+            <button class="number-tile" onclick="exploreNumber(9)">9</button>
+            <button class="number-tile" onclick="exploreNumber(10)">10</button>
+        </div>
+    </div>
+
+    <!-- Counting Game Screen -->
+    <div id="counting" class="screen">
+        <div class="header">
+            <button class="home-btn" onclick="showScreen('home')">🏠</button>
+            <div class="score" id="countingScore">0</div>
+            <button class="refresh-btn" onclick="newCountingQuestion()">🔄</button>
+        </div>
+        <div class="question" id="countingQuestion">How many 🐻?</div>
+        <div class="game-area">
+            <div class="animals-container" id="animalsContainer"></div>
+        </div>
+        <div class="answer-buttons" id="countingAnswers"></div>
+    </div>
+
+    <!-- Math Game Screen -->
+    <div id="math" class="screen">
+        <div class="header">
+            <button class="home-btn" onclick="showScreen('home')">🏠</button>
+            <div class="score" id="mathScore">0</div>
+            <button class="refresh-btn" onclick="newMathProblem()">🔄</button>
+        </div>
+        <div class="game-area">
+            <div class="equation-visual" id="equationVisual"></div>
+            <div class="equation-text">
+                <span class="equation-num first" id="mathFirst">1</span>
+                <span class="equation-op">+</span>
+                <span class="equation-num second" id="mathSecond">1</span>
+                <span class="equation-op">=</span>
+                <span class="equation-num unknown">?</span>
+            </div>
+        </div>
+        <div class="answer-buttons" id="mathAnswers"></div>
+    </div>
+
+    <!-- Celebration Overlay -->
+    <div id="celebration" class="celebration">
+        <div class="celebration-emoji">🎉</div>
+        <div class="celebration-text">Great Job!</div>
+    </div>
+
+    <script>
+        // Speech synthesis
+        const synth = window.speechSynthesis;
+
+        function speak(text) {
+            synth.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.8;
+            utterance.pitch = 1.2;
+            synth.speak(utterance);
+        }
+
+        const numberWords = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
+        const animals = ['🐻', '🐱', '🐶', '🐰', '🐸', '🐦', '🐟', '🦋'];
+        const objects = ['⭐', '🌟', '💫', '✨', '🎈', '🎀', '🦋', '🌸', '🐝', '🌺'];
+        const mathObjects = ['🍎', '⭐', '❤️', '🏀', '🌸', '☀️', '🌙', '🍪'];
+        const encouragements = ['Great job!', 'Wonderful!', 'You did it!', 'Amazing!', 'Super!', 'Yay!'];
+
+        let countingScore = 0;
+        let countingAnswer = 0;
+        let mathScore = 0;
+        let mathAnswer = 0;
+
+        // Screen navigation
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+
+            if (screenId === 'counting') newCountingQuestion();
+            if (screenId === 'math') newMathProblem();
+            if (screenId === 'explore') resetExplore();
+        }
+
+        // Number Explore
+        function resetExplore() {
+            document.getElementById('exploreDisplay').innerHTML = '👆';
+            document.getElementById('exploreDisplay').className = 'tap-prompt';
+            document.getElementById('exploreObjects').innerHTML = '';
+        }
+
+        function exploreNumber(num) {
+            const display = document.getElementById('exploreDisplay');
+            const objectsDiv = document.getElementById('exploreObjects');
+
+            display.textContent = num;
+            display.className = 'number-display';
+
+            objectsDiv.innerHTML = '';
+            const obj = objects[num - 1] || '⭐';
+            for (let i = 0; i < num; i++) {
+                setTimeout(() => {
+                    const span = document.createElement('span');
+                    span.className = 'object-item';
+                    span.textContent = obj;
+                    span.style.animationDelay = `${i * 0.1}s`;
+                    objectsDiv.appendChild(span);
+                }, i * 100);
+            }
+
+            speak(numberWords[num]);
+        }
+
+        // Counting Game
+        function newCountingQuestion() {
+            countingAnswer = Math.floor(Math.random() * 5) + 1;
+            const animal = animals[Math.floor(Math.random() * animals.length)];
+
+            document.getElementById('countingQuestion').textContent = `How many ${animal}?`;
+
+            const container = document.getElementById('animalsContainer');
+            container.innerHTML = '';
+            for (let i = 0; i < countingAnswer; i++) {
+                const span = document.createElement('span');
+                span.className = 'animal-item';
+                span.textContent = animal;
+                span.style.animationDelay = `${i * 0.15}s`;
+                container.appendChild(span);
+            }
+
+            // Generate options
+            let options = [countingAnswer];
+            while (options.length < 3) {
+                const wrong = Math.floor(Math.random() * 5) + 1;
+                if (!options.includes(wrong)) options.push(wrong);
+            }
+            options.sort(() => Math.random() - 0.5);
+
+            const answersDiv = document.getElementById('countingAnswers');
+            answersDiv.innerHTML = '';
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'answer-btn';
+                btn.textContent = opt;
+                btn.onclick = () => checkCountingAnswer(opt, btn);
+                answersDiv.appendChild(btn);
+            });
+        }
+
+        function checkCountingAnswer(answer, btn) {
+            if (answer === countingAnswer) {
+                countingScore++;
+                document.getElementById('countingScore').textContent = countingScore;
+                celebrate();
+            } else {
+                btn.classList.add('wrong');
+                speak('Try again!');
+                setTimeout(() => btn.classList.remove('wrong'), 500);
+            }
+        }
+
+        // Math Game
+        function newMathProblem() {
+            const first = Math.floor(Math.random() * 3) + 1;
+            const second = Math.floor(Math.random() * (5 - first)) + 1;
+            mathAnswer = first + second;
+
+            document.getElementById('mathFirst').textContent = first;
+            document.getElementById('mathSecond').textContent = second;
+
+            const obj = mathObjects[Math.floor(Math.random() * mathObjects.length)];
+            const visualDiv = document.getElementById('equationVisual');
+            visualDiv.innerHTML = '';
+
+            // First group
+            const group1 = document.createElement('div');
+            group1.style.cssText = 'display: flex; gap: 8px; background: rgba(255,140,0,0.2); padding: 15px; border-radius: 15px;';
+            for (let i = 0; i < first; i++) {
+                const span = document.createElement('span');
+                span.className = 'math-object';
+                span.textContent = obj;
+                span.style.animationDelay = `${i * 0.1}s`;
+                group1.appendChild(span);
+            }
+
+            const plus = document.createElement('span');
+            plus.textContent = '+';
+            plus.style.cssText = 'font-size: 50px; font-weight: bold; color: #FF69B4; margin: 0 15px;';
+
+            // Second group
+            const group2 = document.createElement('div');
+            group2.style.cssText = 'display: flex; gap: 8px; background: rgba(147,112,219,0.2); padding: 15px; border-radius: 15px;';
+            for (let i = 0; i < second; i++) {
+                const span = document.createElement('span');
+                span.className = 'math-object';
+                span.textContent = obj;
+                span.style.animationDelay = `${(first + i) * 0.1}s`;
+                group2.appendChild(span);
+            }
+
+            visualDiv.appendChild(group1);
+            visualDiv.appendChild(plus);
+            visualDiv.appendChild(group2);
+
+            // Generate options
+            let options = [mathAnswer];
+            while (options.length < 3) {
+                const wrong = Math.max(1, mathAnswer + Math.floor(Math.random() * 5) - 2);
+                if (!options.includes(wrong) && wrong <= 6) options.push(wrong);
+            }
+            options.sort(() => Math.random() - 0.5);
+
+            const answersDiv = document.getElementById('mathAnswers');
+            answersDiv.innerHTML = '';
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'answer-btn';
+                btn.textContent = opt;
+                btn.onclick = () => checkMathAnswer(opt, btn);
+                answersDiv.appendChild(btn);
+            });
+        }
+
+        function checkMathAnswer(answer, btn) {
+            if (answer === mathAnswer) {
+                mathScore++;
+                document.getElementById('mathScore').textContent = mathScore;
+                celebrate();
+            } else {
+                btn.classList.add('wrong');
+                speak('Try again!');
+                setTimeout(() => btn.classList.remove('wrong'), 500);
+            }
+        }
+
+        // Celebration
+        function celebrate() {
+            const celebration = document.getElementById('celebration');
+            celebration.classList.add('active');
+
+            // Add confetti
+            const colors = ['#FF6B6B', '#4169E1', '#32CD32', '#FFD700', '#9370DB', '#FF8C00', '#FF69B4', '#00CED1'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '-20px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                celebration.appendChild(confetti);
+            }
+
+            // Add star burst
+            for (let i = 0; i < 12; i++) {
+                const star = document.createElement('div');
+                star.className = 'stars-burst';
+                star.textContent = '⭐';
+                star.style.left = '50%';
+                star.style.top = '40%';
+                star.style.transform = `translate(-50%, -50%) rotate(${i * 30}deg) translateY(-100px)`;
+                celebration.appendChild(star);
+            }
+
+            speak(encouragements[Math.floor(Math.random() * encouragements.length)]);
+
+            setTimeout(() => {
+                celebration.classList.remove('active');
+                celebration.querySelectorAll('.confetti, .stars-burst').forEach(el => el.remove());
+
+                // Next question
+                const currentScreen = document.querySelector('.screen.active').id;
+                if (currentScreen === 'counting') newCountingQuestion();
+                if (currentScreen === 'math') newMathProblem();
+            }, 2000);
+        }
+
+        // Prevent zoom on double tap
+        document.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            e.target.click();
+        }, { passive: false });
+    </script>
+</body>
+</html>
