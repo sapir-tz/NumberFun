@@ -106,6 +106,39 @@
             50% { transform: scale(1.05); }
         }
 
+        /* Language Selector */
+        .lang-selector {
+            position: absolute;
+            top: max(20px, env(safe-area-inset-top));
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            font-size: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s, border-color 0.2s;
+            background: linear-gradient(135deg, #fff, #f0f0f0);
+        }
+
+        .lang-btn:active {
+            transform: scale(0.9);
+        }
+
+        .lang-btn.active {
+            border-color: #4169E1;
+            box-shadow: 0 4px 15px rgba(65, 105, 225, 0.4);
+        }
+
         /* Game Screens */
         #explore { background: linear-gradient(135deg, rgba(0, 206, 209, 0.3), rgba(147, 112, 219, 0.3)); }
         #counting { background: linear-gradient(135deg, rgba(50, 205, 50, 0.3), rgba(255, 215, 0, 0.3), rgba(255, 165, 0, 0.3)); }
@@ -393,19 +426,23 @@
 <body>
     <!-- Home Screen -->
     <div id="home" class="screen active">
-        <div class="title">🎉 Number Fun! 🎉</div>
+        <div class="lang-selector">
+            <button class="lang-btn active" onclick="setLanguage('en')" id="langEn">🇺🇸</button>
+            <button class="lang-btn" onclick="setLanguage('he')" id="langHe">🇮🇱</button>
+        </div>
+        <div class="title" id="homeTitle">🎉 Number Fun! 🎉</div>
         <div class="game-modes">
             <div class="mode-btn" onclick="showScreen('explore')">
                 <div class="mode-icon blue">🔢</div>
-                <div class="mode-label">Numbers</div>
+                <div class="mode-label" id="labelNumbers">Numbers</div>
             </div>
             <div class="mode-btn" onclick="showScreen('counting')">
                 <div class="mode-icon green">🐻</div>
-                <div class="mode-label">Count</div>
+                <div class="mode-label" id="labelCount">Count</div>
             </div>
             <div class="mode-btn" onclick="showScreen('math')">
                 <div class="mode-icon orange">➕</div>
-                <div class="mode-label">Add</div>
+                <div class="mode-label" id="labelAdd">Add</div>
             </div>
         </div>
     </div>
@@ -414,7 +451,7 @@
     <div id="explore" class="screen">
         <div class="header">
             <button class="home-btn" onclick="showScreen('home')">🏠</button>
-            <div class="tap-prompt-text" style="font-size: 28px; font-weight: 700; color: #9370DB;">Tap a Number!</div>
+            <div class="tap-prompt-text" style="font-size: 28px; font-weight: 700; color: #9370DB;" id="exploreTapText">Tap a Number!</div>
             <div style="width: 60px;"></div>
         </div>
         <div class="game-area">
@@ -472,10 +509,40 @@
     <!-- Celebration Overlay -->
     <div id="celebration" class="celebration">
         <div class="celebration-emoji">🎉</div>
-        <div class="celebration-text">Great Job!</div>
+        <div class="celebration-text" id="celebrationText">Great Job!</div>
     </div>
 
     <script>
+        // Language settings
+        let currentLang = localStorage.getItem('numberFunLang') || 'en';
+
+        const translations = {
+            en: {
+                title: '🎉 Number Fun! 🎉',
+                numbers: 'Numbers',
+                count: 'Count',
+                add: 'Add',
+                tapNumber: 'Tap a Number!',
+                howMany: 'How many',
+                greatJob: 'Great Job!',
+                tryAgain: 'Try again!',
+                numberWords: ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'],
+                encouragements: ['Great job!', 'Wonderful!', 'You did it!', 'Amazing!', 'Super!', 'Yay!']
+            },
+            he: {
+                title: '🎉 !כיף מספרים 🎉',
+                numbers: 'מספרים',
+                count: 'ספירה',
+                add: 'חיבור',
+                tapNumber: '!לחץ על מספר',
+                howMany: 'כמה',
+                greatJob: '!כל הכבוד',
+                tryAgain: '!נסה שוב',
+                numberWords: ['', 'אחת', 'שתיים', 'שלוש', 'ארבע', 'חמש', 'שש', 'שבע', 'שמונה', 'תשע', 'עשר'],
+                encouragements: ['כל הכבוד!', 'מצוין!', 'עשית את זה!', 'מדהים!', 'סופר!', 'יש!']
+            }
+        };
+
         // Speech synthesis
         const synth = window.speechSynthesis;
 
@@ -484,19 +551,45 @@
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.rate = 0.8;
             utterance.pitch = 1.2;
+            utterance.lang = currentLang === 'he' ? 'he-IL' : 'en-US';
             synth.speak(utterance);
         }
 
-        const numberWords = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('numberFunLang', lang);
+
+            // Update button states
+            document.getElementById('langEn').classList.toggle('active', lang === 'en');
+            document.getElementById('langHe').classList.toggle('active', lang === 'he');
+
+            // Update UI text
+            updateUIText();
+        }
+
+        function updateUIText() {
+            const t = translations[currentLang];
+            document.getElementById('homeTitle').textContent = t.title;
+            document.getElementById('labelNumbers').textContent = t.numbers;
+            document.getElementById('labelCount').textContent = t.count;
+            document.getElementById('labelAdd').textContent = t.add;
+            document.getElementById('exploreTapText').textContent = t.tapNumber;
+            document.getElementById('celebrationText').textContent = t.greatJob;
+        }
+
         const animals = ['🐻', '🐱', '🐶', '🐰', '🐸', '🐦', '🐟', '🦋'];
         const objects = ['⭐', '🌟', '💫', '✨', '🎈', '🎀', '🦋', '🌸', '🐝', '🌺'];
         const mathObjects = ['🍎', '⭐', '❤️', '🏀', '🌸', '☀️', '🌙', '🍪'];
-        const encouragements = ['Great job!', 'Wonderful!', 'You did it!', 'Amazing!', 'Super!', 'Yay!'];
 
         let countingScore = 0;
         let countingAnswer = 0;
         let mathScore = 0;
         let mathAnswer = 0;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage(currentLang);
+        });
 
         // Screen navigation
         function showScreen(screenId) {
@@ -534,15 +627,16 @@
                 }, i * 100);
             }
 
-            speak(numberWords[num]);
+            speak(translations[currentLang].numberWords[num]);
         }
 
         // Counting Game
         function newCountingQuestion() {
             countingAnswer = Math.floor(Math.random() * 5) + 1;
             const animal = animals[Math.floor(Math.random() * animals.length)];
+            const t = translations[currentLang];
 
-            document.getElementById('countingQuestion').textContent = `How many ${animal}?`;
+            document.getElementById('countingQuestion').textContent = `${t.howMany} ${animal}?`;
 
             const container = document.getElementById('animalsContainer');
             container.innerHTML = '';
@@ -580,7 +674,7 @@
                 celebrate();
             } else {
                 btn.classList.add('wrong');
-                speak('Try again!');
+                speak(translations[currentLang].tryAgain);
                 setTimeout(() => btn.classList.remove('wrong'), 500);
             }
         }
@@ -654,7 +748,7 @@
                 celebrate();
             } else {
                 btn.classList.add('wrong');
-                speak('Try again!');
+                speak(translations[currentLang].tryAgain);
                 setTimeout(() => btn.classList.remove('wrong'), 500);
             }
         }
@@ -662,6 +756,9 @@
         // Celebration
         function celebrate() {
             const celebration = document.getElementById('celebration');
+            const t = translations[currentLang];
+
+            document.getElementById('celebrationText').textContent = t.greatJob;
             celebration.classList.add('active');
 
             // Add confetti
@@ -688,7 +785,8 @@
                 celebration.appendChild(star);
             }
 
-            speak(encouragements[Math.floor(Math.random() * encouragements.length)]);
+            const encouragement = t.encouragements[Math.floor(Math.random() * t.encouragements.length)];
+            speak(encouragement);
 
             setTimeout(() => {
                 celebration.classList.remove('active');
