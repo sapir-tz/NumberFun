@@ -45,13 +45,13 @@
 
         /* Home Screen */
         #home {
-            background: linear-gradient(135deg, rgba(147, 112, 219, 0.4), rgba(100, 149, 237, 0.4), rgba(0, 206, 209, 0.4));
+            background: linear-gradient(135deg, #E8E4F0, #DFE9F3, #E5F0F0);
         }
 
         .title {
             font-size: clamp(40px, 10vw, 70px);
             font-weight: 800;
-            background: linear-gradient(90deg, #9370DB, #4169E1, #00CED1);
+            background: linear-gradient(90deg, #8B9DC3, #7BA3B8, #89B0AE);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 2px 10px rgba(255,255,255,0.5);
@@ -91,9 +91,9 @@
             animation: pulse 2s ease-in-out infinite;
         }
 
-        .mode-icon.blue { background: linear-gradient(135deg, #4169E1, #1E90FF); }
-        .mode-icon.green { background: linear-gradient(135deg, #32CD32, #00FA9A); }
-        .mode-icon.orange { background: linear-gradient(135deg, #FF8C00, #FFD700); }
+        .mode-icon.blue { background: linear-gradient(135deg, #A8C5DA, #B8D4E8); }
+        .mode-icon.green { background: linear-gradient(135deg, #A8D5BA, #B8E4C8); }
+        .mode-icon.orange { background: linear-gradient(135deg, #E8D4A8, #F0E0B8); }
 
         .mode-label {
             font-size: clamp(20px, 5vw, 32px);
@@ -135,14 +135,14 @@
         }
 
         .lang-btn.active {
-            border-color: #4169E1;
-            box-shadow: 0 4px 15px rgba(65, 105, 225, 0.4);
+            border-color: #89B0AE;
+            box-shadow: 0 4px 15px rgba(137, 176, 174, 0.4);
         }
 
         /* Game Screens */
-        #explore { background: linear-gradient(135deg, rgba(0, 206, 209, 0.3), rgba(147, 112, 219, 0.3)); }
-        #counting { background: linear-gradient(135deg, rgba(50, 205, 50, 0.3), rgba(255, 215, 0, 0.3), rgba(255, 165, 0, 0.3)); }
-        #math { background: linear-gradient(135deg, rgba(255, 165, 0, 0.3), rgba(255, 105, 180, 0.3), rgba(147, 112, 219, 0.3)); }
+        #explore { background: linear-gradient(135deg, #E5F0F0, #E8E4F0); }
+        #counting { background: linear-gradient(135deg, #E5F0E8, #F0EDE5); }
+        #math { background: linear-gradient(135deg, #F0EDE5, #F0E8EC, #E8E4F0); }
 
         .header {
             width: 100%;
@@ -170,8 +170,8 @@
             transform: scale(0.9);
         }
 
-        .home-btn { background: linear-gradient(135deg, #9370DB, #BA55D3); }
-        .refresh-btn { background: linear-gradient(135deg, #FF8C00, #FFD700); }
+        .home-btn { background: linear-gradient(135deg, #B8A9C9, #C9BAD8); }
+        .refresh-btn { background: linear-gradient(135deg, #D4C4A8, #E0D4B8); }
 
         .score {
             background: rgba(255,255,255,0.9);
@@ -179,7 +179,7 @@
             border-radius: 30px;
             font-size: 28px;
             font-weight: 700;
-            color: #FF8C00;
+            color: #B8A080;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
@@ -191,7 +191,7 @@
         .number-display {
             font-size: clamp(100px, 30vw, 180px);
             font-weight: 800;
-            background: linear-gradient(135deg, #FF8C00, #FF69B4, #9370DB);
+            background: linear-gradient(135deg, #C9A87C, #C9A0B0, #A8A0C9);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: bounce 0.5s ease-in-out infinite alternate;
@@ -246,16 +246,16 @@
             transform: scale(1.1);
         }
 
-        .number-tile:nth-child(1) { background: linear-gradient(135deg, #FF6B6B, #FF8E8E); }
-        .number-tile:nth-child(2) { background: linear-gradient(135deg, #FF8C00, #FFB347); }
-        .number-tile:nth-child(3) { background: linear-gradient(135deg, #FFD700, #FFEC8B); }
-        .number-tile:nth-child(4) { background: linear-gradient(135deg, #32CD32, #7CFC00); }
-        .number-tile:nth-child(5) { background: linear-gradient(135deg, #00CED1, #48D1CC); }
-        .number-tile:nth-child(6) { background: linear-gradient(135deg, #4169E1, #6495ED); }
-        .number-tile:nth-child(7) { background: linear-gradient(135deg, #9370DB, #BA55D3); }
-        .number-tile:nth-child(8) { background: linear-gradient(135deg, #FF69B4, #FFB6C1); }
-        .number-tile:nth-child(9) { background: linear-gradient(135deg, #3CB371, #98FB98); }
-        .number-tile:nth-child(10) { background: linear-gradient(135deg, #6A5ACD, #9370DB); }
+        .number-tile:nth-child(1) { background: linear-gradient(135deg, #D4A5A5, #E0B8B8); }
+        .number-tile:nth-child(2) { background: linear-gradient(135deg, #D4BFA5, #E0D0B8); }
+        .number-tile:nth-child(3) { background: linear-gradient(135deg, #D4D4A5, #E0E0B8); }
+        .number-tile:nth-child(4) { background: linear-gradient(135deg, #A5D4A5, #B8E0B8); }
+        .number-tile:nth-child(5) { background: linear-gradient(135deg, #A5D4D4, #B8E0E0); }
+        .number-tile:nth-child(6) { background: linear-gradient(135deg, #A5B8D4, #B8C8E0); }
+        .number-tile:nth-child(7) { background: linear-gradient(135deg, #BFA5D4, #D0B8E0); }
+        .number-tile:nth-child(8) { background: linear-gradient(135deg, #D4A5BF, #E0B8D0); }
+        .number-tile:nth-child(9) { background: linear-gradient(135deg, #A5D4BF, #B8E0D0); }
+        .number-tile:nth-child(10) { background: linear-gradient(135deg, #A5A5D4, #B8B8E0); }
 
         /* Counting & Math Games */
         .question {
@@ -300,10 +300,10 @@
             font-weight: 800;
         }
 
-        .equation-num.first { color: #FF8C00; }
-        .equation-num.second { color: #9370DB; }
-        .equation-num.unknown { color: #4169E1; }
-        .equation-op { font-size: clamp(35px, 10vw, 60px); font-weight: 700; color: #FF69B4; }
+        .equation-num.first { color: #C9A87C; }
+        .equation-num.second { color: #A8A0C9; }
+        .equation-num.unknown { color: #7BA3B8; }
+        .equation-op { font-size: clamp(35px, 10vw, 60px); font-weight: 700; color: #C9A0B0; }
 
         .answer-buttons {
             display: flex;
@@ -341,9 +341,9 @@
             75% { transform: rotate(10deg) scale(0.9); }
         }
 
-        .answer-btn:nth-child(1) { background: linear-gradient(135deg, #FF6B6B, #FF8E8E); }
-        .answer-btn:nth-child(2) { background: linear-gradient(135deg, #32CD32, #7CFC00); }
-        .answer-btn:nth-child(3) { background: linear-gradient(135deg, #4169E1, #6495ED); }
+        .answer-btn:nth-child(1) { background: linear-gradient(135deg, #D4A5A5, #E0B8B8); }
+        .answer-btn:nth-child(2) { background: linear-gradient(135deg, #A5D4A5, #B8E0B8); }
+        .answer-btn:nth-child(3) { background: linear-gradient(135deg, #A5B8D4, #B8C8E0); }
 
         /* Celebration */
         .celebration {
@@ -372,7 +372,7 @@
         .celebration-text {
             font-size: clamp(40px, 12vw, 70px);
             font-weight: 800;
-            background: linear-gradient(90deg, #FFD700, #FF8C00, #FF69B4);
+            background: linear-gradient(90deg, #D4C4A8, #C9A87C, #C9A0B0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-top: 20px;
@@ -451,7 +451,7 @@
     <div id="explore" class="screen">
         <div class="header">
             <button class="home-btn" onclick="showScreen('home')">🏠</button>
-            <div class="tap-prompt-text" style="font-size: 28px; font-weight: 700; color: #9370DB;" id="exploreTapText">Tap a Number!</div>
+            <div class="tap-prompt-text" style="font-size: 28px; font-weight: 700; color: #8B9DC3;" id="exploreTapText">Tap a Number!</div>
             <div style="width: 60px;"></div>
         </div>
         <div class="game-area">
@@ -730,7 +730,7 @@
 
             // First group
             const group1 = document.createElement('div');
-            group1.style.cssText = 'display: flex; gap: 8px; background: rgba(255,140,0,0.2); padding: 15px; border-radius: 15px;';
+            group1.style.cssText = 'display: flex; gap: 8px; background: rgba(201,168,124,0.2); padding: 15px; border-radius: 15px;';
             for (let i = 0; i < first; i++) {
                 const span = document.createElement('span');
                 span.className = 'math-object';
@@ -741,11 +741,11 @@
 
             const plus = document.createElement('span');
             plus.textContent = '+';
-            plus.style.cssText = 'font-size: 50px; font-weight: bold; color: #FF69B4; margin: 0 15px;';
+            plus.style.cssText = 'font-size: 50px; font-weight: bold; color: #C9A0B0; margin: 0 15px;';
 
             // Second group
             const group2 = document.createElement('div');
-            group2.style.cssText = 'display: flex; gap: 8px; background: rgba(147,112,219,0.2); padding: 15px; border-radius: 15px;';
+            group2.style.cssText = 'display: flex; gap: 8px; background: rgba(168,160,201,0.2); padding: 15px; border-radius: 15px;';
             for (let i = 0; i < second; i++) {
                 const span = document.createElement('span');
                 span.className = 'math-object';
@@ -797,8 +797,8 @@
             document.getElementById('celebrationText').textContent = t.greatJob;
             celebration.classList.add('active');
 
-            // Add confetti
-            const colors = ['#FF6B6B', '#4169E1', '#32CD32', '#FFD700', '#9370DB', '#FF8C00', '#FF69B4', '#00CED1'];
+            // Add confetti - soft pastel colors
+            const colors = ['#D4A5A5', '#A5B8D4', '#A5D4A5', '#D4D4A5', '#BFA5D4', '#D4BFA5', '#D4A5BF', '#A5D4D4'];
             for (let i = 0; i < 50; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
