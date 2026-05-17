@@ -430,7 +430,6 @@
             <button class="lang-btn active" onclick="setLanguage('en')" id="langEn">🇺🇸</button>
             <button class="lang-btn" onclick="setLanguage('he')" id="langHe">🇮🇱</button>
         </div>
-        <div class="title" id="homeTitle">🎉 Number Fun! 🎉</div>
         <div class="game-modes">
             <div class="mode-btn" onclick="showScreen('explore')">
                 <div class="mode-icon blue">🔢</div>
@@ -605,7 +604,6 @@
 
         function updateUIText() {
             const t = translations[currentLang];
-            document.getElementById('homeTitle').textContent = t.title;
             document.getElementById('labelNumbers').textContent = t.numbers;
             document.getElementById('labelCount').textContent = t.count;
             document.getElementById('labelAdd').textContent = t.add;
