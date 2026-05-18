@@ -384,22 +384,17 @@
         }
 
         .celebration-emoji {
-            font-size: 80px;
-            animation: gentlePop 0.6s ease-out;
+            font-size: 100px;
+            animation: dance 0.5s ease-in-out infinite;
         }
 
-        .celebration-text {
-            font-size: clamp(32px, 10vw, 50px);
-            font-weight: 700;
-            color: #8B9DC3;
-            margin-top: 15px;
-            animation: gentlePop 0.7s ease-out 0.1s backwards;
+        @keyframes dance {
+            0%, 100% { transform: rotate(-10deg) translateY(0); }
+            25% { transform: rotate(10deg) translateY(-15px); }
+            50% { transform: rotate(-10deg) translateY(0); }
+            75% { transform: rotate(10deg) translateY(-15px); }
         }
 
-        @keyframes gentlePop {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
 
         .confetti {
             position: absolute;
@@ -514,8 +509,7 @@
 
     <!-- Celebration Overlay -->
     <div id="celebration" class="celebration">
-        <div class="celebration-emoji">🎉</div>
-        <div class="celebration-text" id="celebrationText">Great Job!</div>
+        <div class="celebration-emoji" id="celebrationEmoji">🕺</div>
     </div>
 
     <script>
@@ -615,7 +609,6 @@
             document.getElementById('labelCount').textContent = t.count;
             document.getElementById('labelAdd').textContent = t.add;
             document.getElementById('exploreTapText').textContent = t.tapNumber;
-            document.getElementById('celebrationText').textContent = t.greatJob;
         }
 
         const animals = ['🐻', '🐱', '🐶', '🐰', '🐸', '🐦', '🐟', '🦋'];
@@ -797,14 +790,17 @@
         // Celebration
         function celebrate() {
             const celebration = document.getElementById('celebration');
-            const t = translations[currentLang];
+            const emojiEl = document.getElementById('celebrationEmoji');
 
-            document.getElementById('celebrationText').textContent = t.greatJob;
+            // Random dancing/happy emoji
+            const happyEmojis = ['🕺', '💃', '🎊', '🙌', '🥳', '😄'];
+            emojiEl.textContent = happyEmojis[Math.floor(Math.random() * happyEmojis.length)];
+
             celebration.classList.add('active');
 
             // Add gentle confetti - soft pastel colors
             const colors = ['#D4C4C4', '#C4D4C4', '#C4C4D4', '#D4D4C4', '#D4C4D4'];
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 20; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
                 confetti.style.left = Math.random() * 100 + '%';
@@ -825,7 +821,7 @@
                 const currentScreen = document.querySelector('.screen.active').id;
                 if (currentScreen === 'counting') newCountingQuestion();
                 if (currentScreen === 'math') newMathProblem();
-            }, 2000);
+            }, 1500);
         }
 
         // Prevent zoom on double tap
