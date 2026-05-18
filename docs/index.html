@@ -545,7 +545,37 @@
 
         // Audio playback using pre-recorded high-quality voices
         const audioCache = {};
-        const encouragementFiles = ['great', 'wonderful', 'welldone', 'amazing', 'yay', 'champ'];
+
+        // Web Audio for success sound
+        let audioContext = null;
+
+        function playSuccessSound() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            // Happy "ding ding ding" melody
+            const notes = [523, 659, 784, 1047]; // C5, E5, G5, C6
+            const duration = 0.15;
+
+            notes.forEach((freq, i) => {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                oscillator.frequency.value = freq;
+                oscillator.type = 'sine';
+
+                const startTime = audioContext.currentTime + (i * 0.12);
+                gainNode.gain.setValueAtTime(0.3, startTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+
+                oscillator.start(startTime);
+                oscillator.stop(startTime + duration);
+            });
+        }
 
         // Preload all audio files
         function preloadAudio() {
@@ -575,12 +605,6 @@
         // Speak a number (1-10)
         function speakNumber(num) {
             playAudio(num.toString());
-        }
-
-        // Speak random encouragement
-        function speakEncouragement() {
-            const phrase = encouragementFiles[Math.floor(Math.random() * encouragementFiles.length)];
-            playAudio(phrase);
         }
 
         // Speak try again
@@ -792,9 +816,8 @@
             const celebration = document.getElementById('celebration');
             const emojiEl = document.getElementById('celebrationEmoji');
 
-            // Random dancing/happy emoji
-            const happyEmojis = ['🕺', '💃', '🎊', '🙌', '🥳', '😄'];
-            emojiEl.textContent = happyEmojis[Math.floor(Math.random() * happyEmojis.length)];
+            // Cute dancing rabbit
+            emojiEl.textContent = '🐰';
 
             celebration.classList.add('active');
 
@@ -811,7 +834,8 @@
                 celebration.appendChild(confetti);
             }
 
-            speakEncouragement();
+            // Play happy sound
+            playSuccessSound();
 
             setTimeout(() => {
                 celebration.classList.remove('active');
