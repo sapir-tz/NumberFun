@@ -1187,13 +1187,13 @@
             // Pick random pose
             const pose = woollyPoses[Math.floor(Math.random() * woollyPoses.length)];
 
-            // Reset and apply new animation
-            woollySvg.className = pose.body;
+            // Reset and apply new animation (use setAttribute for SVG elements)
+            woollySvg.setAttribute('class', pose.body);
             if (leftArm) {
-                leftArm.className = 'arm-left ' + pose.leftArm;
+                leftArm.setAttribute('class', 'arm-left ' + pose.leftArm);
             }
             if (rightArm) {
-                rightArm.className = 'arm-right ' + pose.rightArm;
+                rightArm.setAttribute('class', 'arm-right ' + pose.rightArm);
             }
 
             celebration.classList.add('active');
