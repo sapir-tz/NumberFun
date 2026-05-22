@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Number Fun">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔢</text></svg>">
-    <title>Number Fun!</title>
+    <meta name="apple-mobile-web-app-title" content="Yonatan's Learning">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+    <title>Yonatan's Learning</title>
     <style>
         * {
             margin: 0;
@@ -56,9 +56,80 @@
             justify-content: center;
         }
 
-        /* Home Screen */
+        /* Start Screen - Two Main Categories */
+        #start {
+            background: linear-gradient(135deg, #E8E4F0, #DFE9F3, #E5F0F0);
+        }
+
+        .app-title {
+            font-size: clamp(28px, 6vw, 45px);
+            font-weight: 800;
+            color: #6B7B8B;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .main-categories {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .category-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            width: clamp(140px, 40vw, 280px);
+            height: clamp(180px, 45vw, 320px);
+            border-radius: 40px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+
+        .category-btn:active {
+            transform: scale(0.95);
+        }
+
+        .category-btn.reading {
+            background: linear-gradient(135deg, #D4B8E8, #C5A8DA);
+        }
+
+        .category-btn.numbers {
+            background: linear-gradient(135deg, #A8D5DA, #B8E4E8);
+        }
+
+        .category-icon {
+            font-size: clamp(60px, 15vw, 100px);
+        }
+
+        .category-label {
+            font-size: clamp(24px, 6vw, 36px);
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Sub-menu Screens */
         #home {
             background: linear-gradient(135deg, #E8E4F0, #DFE9F3, #E5F0F0);
+        }
+
+        #numbers-menu {
+            background: linear-gradient(135deg, #E5F0F0, #DFE9F3);
+        }
+
+        .submenu-title {
+            font-size: clamp(32px, 8vw, 50px);
+            font-weight: 800;
+            color: #6B8B8B;
+            margin-bottom: 30px;
+            text-align: center;
         }
 
         .title {
@@ -623,11 +694,31 @@
     </style>
 </head>
 <body>
-    <!-- Home Screen -->
-    <div id="home" class="screen active">
+    <!-- Start Screen - Main Categories -->
+    <div id="start" class="screen active">
         <div class="lang-selector">
             <button class="lang-btn active" onclick="setLanguage('en')" id="langEn">🇺🇸</button>
             <button class="lang-btn" onclick="setLanguage('he')" id="langHe">🇮🇱</button>
+        </div>
+        <div class="app-title">🌟 Yonatan's Learning 🌟</div>
+        <div class="main-categories">
+            <div class="category-btn reading" onclick="showScreen('reading')">
+                <div class="category-icon">📖</div>
+                <div class="category-label">קריאה</div>
+            </div>
+            <div class="category-btn numbers" onclick="showScreen('numbers-menu')">
+                <div class="category-icon">🔢</div>
+                <div class="category-label">מספרים</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Numbers Menu Screen -->
+    <div id="numbers-menu" class="screen">
+        <div class="header">
+            <button class="home-btn" onclick="showScreen('start')">🏠</button>
+            <div class="submenu-title">מספרים</div>
+            <div style="width: 60px;"></div>
         </div>
         <div class="game-modes">
             <div class="mode-btn" onclick="showScreen('explore')">
@@ -642,17 +733,13 @@
                 <div class="mode-icon orange">➕</div>
                 <div class="mode-label" id="labelAdd">Add</div>
             </div>
-            <div class="mode-btn" onclick="showScreen('reading')">
-                <div class="mode-icon purple">📖</div>
-                <div class="mode-label" id="labelRead">קריאה</div>
-            </div>
         </div>
     </div>
 
     <!-- Number Explore Screen -->
     <div id="explore" class="screen">
         <div class="header">
-            <button class="home-btn" onclick="showScreen('home')">🏠</button>
+            <button class="home-btn" onclick="goBack()">🏠</button>
             <div class="tap-prompt-text" style="font-size: 28px; font-weight: 700; color: #8B9DC3;" id="exploreTapText">Tap a Number!</div>
             <div style="width: 60px;"></div>
         </div>
@@ -677,7 +764,7 @@
     <!-- Counting Game Screen -->
     <div id="counting" class="screen">
         <div class="header">
-            <button class="home-btn" onclick="showScreen('home')">🏠</button>
+            <button class="home-btn" onclick="goBack()">🏠</button>
             <div class="score" id="countingScore">0</div>
             <button class="refresh-btn" onclick="newCountingQuestion()">🔄</button>
         </div>
@@ -691,7 +778,7 @@
     <!-- Math Game Screen -->
     <div id="math" class="screen">
         <div class="header">
-            <button class="home-btn" onclick="showScreen('home')">🏠</button>
+            <button class="home-btn" onclick="goBack()">🏠</button>
             <div class="score" id="mathScore">0</div>
             <button class="refresh-btn" onclick="newMathProblem()">🔄</button>
         </div>
@@ -711,7 +798,7 @@
     <!-- Reading Game Screen -->
     <div id="reading" class="screen">
         <div class="header">
-            <button class="home-btn" onclick="showScreen('home')">🏠</button>
+            <button class="home-btn" onclick="goBack()">🏠</button>
             <div class="score" id="readingScore">0</div>
             <button class="refresh-btn" onclick="shuffleWords()">🔀</button>
         </div>
@@ -1180,14 +1267,32 @@
         });
 
         // Screen navigation
+        let currentScreen = 'start';
+
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
+            currentScreen = screenId;
 
             if (screenId === 'counting') newCountingQuestion();
             if (screenId === 'math') newMathProblem();
             if (screenId === 'explore') resetExplore();
             if (screenId === 'reading') initReading();
+        }
+
+        function goBack() {
+            // Number games go back to numbers-menu
+            if (['explore', 'counting', 'math'].includes(currentScreen)) {
+                showScreen('numbers-menu');
+            }
+            // Reading goes back to start
+            else if (currentScreen === 'reading') {
+                showScreen('start');
+            }
+            // Default go to start
+            else {
+                showScreen('start');
+            }
         }
 
         // Number Explore
