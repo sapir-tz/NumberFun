@@ -708,11 +708,171 @@
             justify-content: center;
             width: 100%;
         }
+
+        /* 3D Dancing Woolly */
+        .dancing-woolly-container {
+            perspective: 800px;
+            margin-bottom: 30px;
+        }
+
+        .dancing-woolly {
+            width: 180px;
+            height: 180px;
+            transform-style: preserve-3d;
+            animation: dance3D 2s ease-in-out infinite;
+        }
+
+        @keyframes dance3D {
+            0% {
+                transform: rotateY(-15deg) rotateX(5deg) translateY(0);
+            }
+            25% {
+                transform: rotateY(15deg) rotateX(-5deg) translateY(-20px) scale(1.05);
+            }
+            50% {
+                transform: rotateY(-10deg) rotateX(3deg) translateY(-5px);
+            }
+            75% {
+                transform: rotateY(20deg) rotateX(-3deg) translateY(-25px) scale(1.08);
+            }
+            100% {
+                transform: rotateY(-15deg) rotateX(5deg) translateY(0);
+            }
+        }
+
+        .dancing-woolly svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.2));
+        }
+
+        .dancing-woolly .dance-arm-left {
+            transform-origin: 38px 118px;
+            animation: danceArmLeft 1s ease-in-out infinite;
+        }
+
+        @keyframes danceArmLeft {
+            0%, 100% { transform: rotate(15deg); }
+            50% { transform: rotate(-30deg); }
+        }
+
+        .dancing-woolly .dance-arm-right {
+            transform-origin: 162px 118px;
+            animation: danceArmRight 1s ease-in-out infinite;
+        }
+
+        @keyframes danceArmRight {
+            0%, 100% { transform: rotate(-15deg); }
+            50% { transform: rotate(30deg); }
+        }
+
+        .dancing-woolly .dance-body {
+            animation: danceSquish 0.5s ease-in-out infinite;
+            transform-origin: center bottom;
+        }
+
+        @keyframes danceSquish {
+            0%, 100% { transform: scaleY(1) scaleX(1); }
+            50% { transform: scaleY(0.95) scaleX(1.05); }
+        }
+
+        .dance-floor {
+            width: 120px;
+            height: 20px;
+            background: radial-gradient(ellipse, rgba(0,0,0,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            margin-top: -10px;
+            animation: shadowPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes shadowPulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            25%, 75% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.25; }
+        }
     </style>
 </head>
 <body>
     <!-- Start Screen - Main Categories -->
     <div id="start" class="screen active">
+        <div class="dancing-woolly-container">
+            <div class="dancing-woolly">
+                <svg viewBox="0 0 200 200">
+                    <!-- Body group with squish animation -->
+                    <g class="dance-body">
+                        <!-- Fluffy body -->
+                        <ellipse cx="100" cy="125" rx="50" ry="40" fill="#F5F0E6"/>
+                        <circle cx="55" cy="112" r="16" fill="#FFF8F0"/>
+                        <circle cx="75" cy="98" r="14" fill="#FFF8F0"/>
+                        <circle cx="100" cy="92" r="16" fill="#FFF8F0"/>
+                        <circle cx="125" cy="98" r="14" fill="#FFF8F0"/>
+                        <circle cx="145" cy="112" r="16" fill="#FFF8F0"/>
+                        <circle cx="62" cy="135" r="13" fill="#FFF8F0"/>
+                        <circle cx="138" cy="135" r="13" fill="#FFF8F0"/>
+                        <circle cx="85" cy="148" r="12" fill="#FFF8F0"/>
+                        <circle cx="115" cy="148" r="12" fill="#FFF8F0"/>
+                    </g>
+
+                    <!-- Right arm -->
+                    <g class="dance-arm-right">
+                        <ellipse cx="162" cy="100" rx="6" ry="14" fill="#FFD4C4" transform="rotate(35 162 100)"/>
+                        <ellipse cx="170" cy="90" rx="5" ry="4" fill="#FFBCAC" transform="rotate(35 170 90)"/>
+                    </g>
+
+                    <!-- Cute round head -->
+                    <ellipse cx="100" cy="68" rx="35" ry="32" fill="#FFE8DC"/>
+
+                    <!-- Extra fluffy top -->
+                    <circle cx="75" cy="42" r="12" fill="#FFF8F0"/>
+                    <circle cx="100" cy="36" r="14" fill="#FFF8F0"/>
+                    <circle cx="125" cy="42" r="12" fill="#FFF8F0"/>
+                    <circle cx="88" cy="45" r="10" fill="#FFF8F0"/>
+                    <circle cx="112" cy="45" r="10" fill="#FFF8F0"/>
+
+                    <!-- Fluffy cheeks -->
+                    <circle cx="68" cy="65" r="9" fill="#FFF8F0"/>
+                    <circle cx="132" cy="65" r="9" fill="#FFF8F0"/>
+
+                    <!-- Cute floppy ears -->
+                    <ellipse cx="58" cy="58" rx="10" ry="7" fill="#FFD4C4" transform="rotate(-25 58 58)"/>
+                    <ellipse cx="142" cy="58" rx="10" ry="7" fill="#FFD4C4" transform="rotate(25 142 58)"/>
+                    <ellipse cx="58" cy="58" rx="6" ry="4" fill="#FFBCAC" transform="rotate(-25 58 58)"/>
+                    <ellipse cx="142" cy="58" rx="6" ry="4" fill="#FFBCAC" transform="rotate(25 142 58)"/>
+
+                    <!-- Happy eyes ^_^ -->
+                    <path d="M 74 68 Q 82 58 90 68" stroke="#3D3D3D" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <path d="M 110 68 Q 118 58 126 68" stroke="#3D3D3D" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+                    <!-- Rosy cheeks -->
+                    <ellipse cx="65" cy="76" rx="10" ry="6" fill="#FFCDD2" opacity="0.9"/>
+                    <ellipse cx="135" cy="76" rx="10" ry="6" fill="#FFCDD2" opacity="0.9"/>
+
+                    <!-- Cute button nose -->
+                    <ellipse cx="100" cy="78" rx="5" ry="4" fill="#FFAB91"/>
+                    <ellipse cx="100" cy="77" rx="3" ry="2" fill="#FFCDBC" opacity="0.6"/>
+
+                    <!-- Big smile -->
+                    <path d="M 85 86 Q 100 100 115 86" stroke="#3D3D3D" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+                    <!-- Little legs -->
+                    <rect x="72" y="155" width="10" height="22" rx="5" fill="#FFD4C4"/>
+                    <rect x="118" y="155" width="10" height="22" rx="5" fill="#FFD4C4"/>
+                    <ellipse cx="77" cy="175" rx="6" ry="4" fill="#FFBCAC"/>
+                    <ellipse cx="123" cy="175" rx="6" ry="4" fill="#FFBCAC"/>
+
+                    <!-- Fluffy tail -->
+                    <circle cx="150" cy="125" r="10" fill="#FFF8F0"/>
+                    <circle cx="155" cy="120" r="7" fill="#FFF8F0"/>
+
+                    <!-- Left arm -->
+                    <g class="dance-arm-left">
+                        <ellipse cx="38" cy="100" rx="6" ry="14" fill="#FFD4C4" transform="rotate(-35 38 100)"/>
+                        <ellipse cx="30" cy="90" rx="5" ry="4" fill="#FFBCAC" transform="rotate(-35 30 90)"/>
+                    </g>
+                </svg>
+            </div>
+            <div class="dance-floor"></div>
+        </div>
         <div class="main-categories">
             <div class="category-btn reading" onclick="showScreen('reading')">
                 <div class="category-icon">📖</div>
