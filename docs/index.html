@@ -272,11 +272,21 @@
             transform: scale(0.9);
         }
 
-        .nav-btn.play-btn {
+        .play-word-btn {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: none;
+            font-size: 60px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
             background: linear-gradient(135deg, #A8D5BA, #B8E4C8);
-            width: 100px;
-            height: 100px;
-            font-size: 50px;
+            margin: 20px 0;
+        }
+
+        .play-word-btn:active {
+            transform: scale(0.9);
         }
 
         .word-progress {
@@ -808,9 +818,9 @@
         </div>
         <div class="game-area">
             <div class="word-display" id="wordDisplay">אמא</div>
+            <button class="play-word-btn" onclick="speakCurrentWord()">▶️</button>
             <div class="word-nav">
                 <button class="nav-btn" onclick="prevWord()">◀</button>
-                <button class="nav-btn play-btn" onclick="speakCurrentWord()">🔊</button>
                 <button class="nav-btn" onclick="nextWord()">▶</button>
             </div>
             <div class="word-progress" id="wordProgress">1 / 46</div>
@@ -1230,12 +1240,14 @@
         function nextWord() {
             currentWordIndex = (currentWordIndex + 1) % hebrewWords.length;
             updateWordDisplay();
+            WoollySounds.playPop();
         }
 
         // Previous word
         function prevWord() {
             currentWordIndex = (currentWordIndex - 1 + hebrewWords.length) % hebrewWords.length;
             updateWordDisplay();
+            WoollySounds.playPop();
         }
 
         // Shuffle words
