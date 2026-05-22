@@ -696,25 +696,22 @@
 <body>
     <!-- Start Screen - Main Categories -->
     <div id="start" class="screen active">
-        <div class="lang-selector">
-            <button class="lang-btn active" onclick="setLanguage('en')" id="langEn">🇺🇸</button>
-            <button class="lang-btn" onclick="setLanguage('he')" id="langHe">🇮🇱</button>
-        </div>
-        <div class="app-title">🌟 Yonatan's Learning 🌟</div>
         <div class="main-categories">
             <div class="category-btn reading" onclick="showScreen('reading')">
                 <div class="category-icon">📖</div>
-                <div class="category-label">קריאה</div>
             </div>
             <div class="category-btn numbers" onclick="showScreen('numbers-menu')">
                 <div class="category-icon">🔢</div>
-                <div class="category-label">מספרים</div>
             </div>
         </div>
     </div>
 
     <!-- Numbers Menu Screen -->
     <div id="numbers-menu" class="screen">
+        <div class="lang-selector">
+            <button class="lang-btn active" onclick="setLanguage('en')" id="langEn">🇺🇸</button>
+            <button class="lang-btn" onclick="setLanguage('he')" id="langHe">🇮🇱</button>
+        </div>
         <div class="header">
             <button class="home-btn" onclick="showScreen('start')">🏠</button>
             <div class="submenu-title">מספרים</div>
