@@ -709,170 +709,24 @@
             width: 100%;
         }
 
-        /* 3D Dancing Woolly */
-        .dancing-woolly-container {
-            perspective: 800px;
-            margin-bottom: 30px;
-        }
-
-        .dancing-woolly {
-            width: 180px;
-            height: 180px;
-            transform-style: preserve-3d;
-            animation: dance3D 2s ease-in-out infinite;
-        }
-
-        @keyframes dance3D {
-            0% {
-                transform: rotateY(-15deg) rotateX(5deg) translateY(0);
-            }
-            25% {
-                transform: rotateY(15deg) rotateX(-5deg) translateY(-20px) scale(1.05);
-            }
-            50% {
-                transform: rotateY(-10deg) rotateX(3deg) translateY(-5px);
-            }
-            75% {
-                transform: rotateY(20deg) rotateX(-3deg) translateY(-25px) scale(1.08);
-            }
-            100% {
-                transform: rotateY(-15deg) rotateX(5deg) translateY(0);
-            }
-        }
-
-        .dancing-woolly svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.2));
-        }
-
-        .dancing-woolly .dance-arm-left {
-            transform-origin: 38px 118px;
-            animation: danceArmLeft 1s ease-in-out infinite;
-        }
-
-        @keyframes danceArmLeft {
-            0%, 100% { transform: rotate(15deg); }
-            50% { transform: rotate(-30deg); }
-        }
-
-        .dancing-woolly .dance-arm-right {
-            transform-origin: 162px 118px;
-            animation: danceArmRight 1s ease-in-out infinite;
-        }
-
-        @keyframes danceArmRight {
-            0%, 100% { transform: rotate(-15deg); }
-            50% { transform: rotate(30deg); }
-        }
-
-        .dancing-woolly .dance-body {
-            animation: danceSquish 0.5s ease-in-out infinite;
-            transform-origin: center bottom;
-        }
-
-        @keyframes danceSquish {
-            0%, 100% { transform: scaleY(1) scaleX(1); }
-            50% { transform: scaleY(0.95) scaleX(1.05); }
-        }
-
-        .dance-floor {
-            width: 120px;
-            height: 20px;
-            background: radial-gradient(ellipse, rgba(0,0,0,0.15) 0%, transparent 70%);
+        /* 3D Woolly Container */
+        #woolly-3d-container {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 20px;
             border-radius: 50%;
-            margin-top: -10px;
-            animation: shadowPulse 2s ease-in-out infinite;
+            overflow: hidden;
         }
 
-        @keyframes shadowPulse {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            25%, 75% { transform: scale(0.8); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.25; }
+        #woolly-3d-container canvas {
+            display: block;
         }
     </style>
 </head>
 <body>
     <!-- Start Screen - Main Categories -->
     <div id="start" class="screen active">
-        <div class="dancing-woolly-container">
-            <div class="dancing-woolly">
-                <svg viewBox="0 0 200 200">
-                    <!-- Body group with squish animation -->
-                    <g class="dance-body">
-                        <!-- Fluffy body -->
-                        <ellipse cx="100" cy="125" rx="50" ry="40" fill="#F5F0E6"/>
-                        <circle cx="55" cy="112" r="16" fill="#FFF8F0"/>
-                        <circle cx="75" cy="98" r="14" fill="#FFF8F0"/>
-                        <circle cx="100" cy="92" r="16" fill="#FFF8F0"/>
-                        <circle cx="125" cy="98" r="14" fill="#FFF8F0"/>
-                        <circle cx="145" cy="112" r="16" fill="#FFF8F0"/>
-                        <circle cx="62" cy="135" r="13" fill="#FFF8F0"/>
-                        <circle cx="138" cy="135" r="13" fill="#FFF8F0"/>
-                        <circle cx="85" cy="148" r="12" fill="#FFF8F0"/>
-                        <circle cx="115" cy="148" r="12" fill="#FFF8F0"/>
-                    </g>
-
-                    <!-- Right arm -->
-                    <g class="dance-arm-right">
-                        <ellipse cx="162" cy="100" rx="6" ry="14" fill="#FFD4C4" transform="rotate(35 162 100)"/>
-                        <ellipse cx="170" cy="90" rx="5" ry="4" fill="#FFBCAC" transform="rotate(35 170 90)"/>
-                    </g>
-
-                    <!-- Cute round head -->
-                    <ellipse cx="100" cy="68" rx="35" ry="32" fill="#FFE8DC"/>
-
-                    <!-- Extra fluffy top -->
-                    <circle cx="75" cy="42" r="12" fill="#FFF8F0"/>
-                    <circle cx="100" cy="36" r="14" fill="#FFF8F0"/>
-                    <circle cx="125" cy="42" r="12" fill="#FFF8F0"/>
-                    <circle cx="88" cy="45" r="10" fill="#FFF8F0"/>
-                    <circle cx="112" cy="45" r="10" fill="#FFF8F0"/>
-
-                    <!-- Fluffy cheeks -->
-                    <circle cx="68" cy="65" r="9" fill="#FFF8F0"/>
-                    <circle cx="132" cy="65" r="9" fill="#FFF8F0"/>
-
-                    <!-- Cute floppy ears -->
-                    <ellipse cx="58" cy="58" rx="10" ry="7" fill="#FFD4C4" transform="rotate(-25 58 58)"/>
-                    <ellipse cx="142" cy="58" rx="10" ry="7" fill="#FFD4C4" transform="rotate(25 142 58)"/>
-                    <ellipse cx="58" cy="58" rx="6" ry="4" fill="#FFBCAC" transform="rotate(-25 58 58)"/>
-                    <ellipse cx="142" cy="58" rx="6" ry="4" fill="#FFBCAC" transform="rotate(25 142 58)"/>
-
-                    <!-- Happy eyes ^_^ -->
-                    <path d="M 74 68 Q 82 58 90 68" stroke="#3D3D3D" stroke-width="3" fill="none" stroke-linecap="round"/>
-                    <path d="M 110 68 Q 118 58 126 68" stroke="#3D3D3D" stroke-width="3" fill="none" stroke-linecap="round"/>
-
-                    <!-- Rosy cheeks -->
-                    <ellipse cx="65" cy="76" rx="10" ry="6" fill="#FFCDD2" opacity="0.9"/>
-                    <ellipse cx="135" cy="76" rx="10" ry="6" fill="#FFCDD2" opacity="0.9"/>
-
-                    <!-- Cute button nose -->
-                    <ellipse cx="100" cy="78" rx="5" ry="4" fill="#FFAB91"/>
-                    <ellipse cx="100" cy="77" rx="3" ry="2" fill="#FFCDBC" opacity="0.6"/>
-
-                    <!-- Big smile -->
-                    <path d="M 85 86 Q 100 100 115 86" stroke="#3D3D3D" stroke-width="3" fill="none" stroke-linecap="round"/>
-
-                    <!-- Little legs -->
-                    <rect x="72" y="155" width="10" height="22" rx="5" fill="#FFD4C4"/>
-                    <rect x="118" y="155" width="10" height="22" rx="5" fill="#FFD4C4"/>
-                    <ellipse cx="77" cy="175" rx="6" ry="4" fill="#FFBCAC"/>
-                    <ellipse cx="123" cy="175" rx="6" ry="4" fill="#FFBCAC"/>
-
-                    <!-- Fluffy tail -->
-                    <circle cx="150" cy="125" r="10" fill="#FFF8F0"/>
-                    <circle cx="155" cy="120" r="7" fill="#FFF8F0"/>
-
-                    <!-- Left arm -->
-                    <g class="dance-arm-left">
-                        <ellipse cx="38" cy="100" rx="6" ry="14" fill="#FFD4C4" transform="rotate(-35 38 100)"/>
-                        <ellipse cx="30" cy="90" rx="5" ry="4" fill="#FFBCAC" transform="rotate(-35 30 90)"/>
-                    </g>
-                </svg>
-            </div>
-            <div class="dance-floor"></div>
-        </div>
+        <div id="woolly-3d-container"></div>
         <div class="main-categories">
             <div class="category-btn reading" onclick="showScreen('reading')">
                 <div class="category-icon">📖</div>
@@ -1698,6 +1552,236 @@
             e.preventDefault();
             e.target.click();
         }, { passive: false });
+    </script>
+
+    <!-- Three.js for 3D Woolly -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // 3D Woolly Setup
+        function init3DWoolly() {
+            const container = document.getElementById('woolly-3d-container');
+            if (!container) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+            renderer.setSize(200, 200);
+            renderer.setClearColor(0x000000, 0);
+            container.appendChild(renderer.domElement);
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xFFF5F0, 0.8);
+            scene.add(ambientLight);
+            const mainLight = new THREE.DirectionalLight(0xFFFFFF, 0.6);
+            mainLight.position.set(3, 8, 5);
+            scene.add(mainLight);
+            const fillLight = new THREE.DirectionalLight(0xFFE4EC, 0.4);
+            fillLight.position.set(-4, 4, -3);
+            scene.add(fillLight);
+
+            // Materials
+            const woolMaterial = new THREE.MeshStandardMaterial({ color: 0xFFFDF5, roughness: 1.0 });
+            const faceMaterial = new THREE.MeshStandardMaterial({ color: 0xFFE4D4, roughness: 0.7 });
+            const earInnerMaterial = new THREE.MeshStandardMaterial({ color: 0xFFCDD2, roughness: 0.8 });
+            const eyeMaterial = new THREE.MeshStandardMaterial({ color: 0x3E2723, roughness: 0.2 });
+            const eyeWhiteMaterial = new THREE.MeshStandardMaterial({ color: 0xFFFFFF, roughness: 0.3 });
+            const eyeHighlightMaterial = new THREE.MeshStandardMaterial({ color: 0xFFFFFF, emissive: 0xFFFFFF, emissiveIntensity: 0.3 });
+            const noseMaterial = new THREE.MeshStandardMaterial({ color: 0xFFB5B0, roughness: 0.6 });
+            const cheekMaterial = new THREE.MeshStandardMaterial({ color: 0xFFB6C1, transparent: true, opacity: 0.7 });
+            const legMaterial = new THREE.MeshStandardMaterial({ color: 0xD7CCC8, roughness: 0.8 });
+            const hoofMaterial = new THREE.MeshStandardMaterial({ color: 0xBCAAA4, roughness: 0.7 });
+
+            // Woolly group
+            const woolly = new THREE.Group();
+
+            // Body
+            const bodyGroup = new THREE.Group();
+            const bodyCore = new THREE.Mesh(new THREE.SphereGeometry(1.0, 32, 32), woolMaterial);
+            bodyCore.scale.set(1.1, 0.95, 1.0);
+            bodyGroup.add(bodyCore);
+
+            // Fluffy wool
+            const woolPositions = [
+                [0, 0.85, 0.3, 0.42], [0.4, 0.75, 0.35, 0.38], [-0.4, 0.75, 0.35, 0.38],
+                [0.55, 0.4, 0.65, 0.4], [-0.55, 0.4, 0.65, 0.4],
+                [0.3, 0.1, 0.85, 0.38], [-0.3, 0.1, 0.85, 0.38],
+                [0.9, 0.3, 0.2, 0.4], [-0.9, 0.3, 0.2, 0.4],
+                [0, 0.5, -0.7, 0.4], [0.4, 0.35, -0.75, 0.38], [-0.4, 0.35, -0.75, 0.38],
+                [0.5, -0.5, 0.5, 0.35], [-0.5, -0.5, 0.5, 0.35]
+            ];
+            woolPositions.forEach(pos => {
+                const fluff = new THREE.Mesh(new THREE.SphereGeometry(pos[3], 16, 16), woolMaterial);
+                fluff.position.set(pos[0], pos[1], pos[2]);
+                bodyGroup.add(fluff);
+            });
+            woolly.add(bodyGroup);
+
+            // Head
+            const headGroup = new THREE.Group();
+            headGroup.position.set(0, 1.1, 0.7);
+            const headBase = new THREE.Mesh(new THREE.SphereGeometry(0.62, 32, 32), faceMaterial);
+            headBase.scale.set(1, 0.92, 0.88);
+            headGroup.add(headBase);
+
+            // Head wool
+            [[0, 0.52, -0.05, 0.28], [0.22, 0.5, 0, 0.24], [-0.22, 0.5, 0, 0.24], [0, 0.58, 0.05, 0.2]].forEach(pos => {
+                const fluff = new THREE.Mesh(new THREE.SphereGeometry(pos[3], 16, 16), woolMaterial);
+                fluff.position.set(pos[0], pos[1], pos[2]);
+                headGroup.add(fluff);
+            });
+
+            // Ears
+            const earGroup = new THREE.Group();
+            const leftEar = new THREE.Mesh(new THREE.SphereGeometry(0.16, 16, 16), faceMaterial);
+            leftEar.scale.set(2.2, 0.9, 0.5);
+            leftEar.position.set(-0.58, 0.1, -0.05);
+            leftEar.rotation.z = 0.5;
+            earGroup.add(leftEar);
+            const rightEar = new THREE.Mesh(new THREE.SphereGeometry(0.16, 16, 16), faceMaterial);
+            rightEar.scale.set(2.2, 0.9, 0.5);
+            rightEar.position.set(0.58, 0.1, -0.05);
+            rightEar.rotation.z = -0.5;
+            earGroup.add(rightEar);
+            headGroup.add(earGroup);
+
+            // Eyes
+            const leftEyeWhite = new THREE.Mesh(new THREE.SphereGeometry(0.18, 24, 24), eyeWhiteMaterial);
+            leftEyeWhite.position.set(-0.2, 0.05, 0.48);
+            leftEyeWhite.scale.set(1, 1.1, 0.6);
+            headGroup.add(leftEyeWhite);
+            const leftPupil = new THREE.Mesh(new THREE.SphereGeometry(0.13, 20, 20), eyeMaterial);
+            leftPupil.position.set(-0.19, 0.05, 0.54);
+            headGroup.add(leftPupil);
+            const leftHighlight = new THREE.Mesh(new THREE.SphereGeometry(0.045, 12, 12), eyeHighlightMaterial);
+            leftHighlight.position.set(-0.15, 0.12, 0.62);
+            headGroup.add(leftHighlight);
+
+            const rightEyeWhite = new THREE.Mesh(new THREE.SphereGeometry(0.18, 24, 24), eyeWhiteMaterial);
+            rightEyeWhite.position.set(0.2, 0.05, 0.48);
+            rightEyeWhite.scale.set(1, 1.1, 0.6);
+            headGroup.add(rightEyeWhite);
+            const rightPupil = new THREE.Mesh(new THREE.SphereGeometry(0.13, 20, 20), eyeMaterial);
+            rightPupil.position.set(0.19, 0.05, 0.54);
+            headGroup.add(rightPupil);
+            const rightHighlight = new THREE.Mesh(new THREE.SphereGeometry(0.045, 12, 12), eyeHighlightMaterial);
+            rightHighlight.position.set(0.23, 0.12, 0.62);
+            headGroup.add(rightHighlight);
+
+            // Nose
+            const nose = new THREE.Mesh(new THREE.SphereGeometry(0.09, 20, 20), noseMaterial);
+            nose.scale.set(1.1, 0.85, 0.75);
+            nose.position.set(0, -0.12, 0.55);
+            headGroup.add(nose);
+
+            // Cheeks
+            const leftCheek = new THREE.Mesh(new THREE.SphereGeometry(0.14, 20, 20), cheekMaterial);
+            leftCheek.scale.set(1.2, 0.8, 0.25);
+            leftCheek.position.set(-0.38, -0.08, 0.4);
+            headGroup.add(leftCheek);
+            const rightCheek = new THREE.Mesh(new THREE.SphereGeometry(0.14, 20, 20), cheekMaterial);
+            rightCheek.scale.set(1.2, 0.8, 0.25);
+            rightCheek.position.set(0.38, -0.08, 0.4);
+            headGroup.add(rightCheek);
+
+            // Smile
+            const smileGeometry = new THREE.TorusGeometry(0.1, 0.018, 8, 20, Math.PI * 0.8);
+            const smile = new THREE.Mesh(smileGeometry, new THREE.MeshStandardMaterial({ color: 0xD4A5A5 }));
+            smile.position.set(0, -0.22, 0.5);
+            smile.rotation.x = Math.PI * 0.1;
+            smile.rotation.z = Math.PI;
+            headGroup.add(smile);
+
+            woolly.add(headGroup);
+
+            // Arms
+            const armMaterial = new THREE.MeshStandardMaterial({ color: 0xFFE4D4, roughness: 0.7 });
+            const leftArmGroup = new THREE.Group();
+            leftArmGroup.position.set(-1.05, 0.15, 0.35);
+            const leftArm = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.1, 0.35, 12), armMaterial);
+            leftArm.rotation.z = 0.4;
+            leftArmGroup.add(leftArm);
+            const leftHoof = new THREE.Mesh(new THREE.SphereGeometry(0.11, 14, 14), hoofMaterial);
+            leftHoof.position.set(-0.12, -0.12, 0);
+            leftArmGroup.add(leftHoof);
+            woolly.add(leftArmGroup);
+
+            const rightArmGroup = new THREE.Group();
+            rightArmGroup.position.set(1.05, 0.15, 0.35);
+            const rightArm = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.1, 0.35, 12), armMaterial);
+            rightArm.rotation.z = -0.4;
+            rightArmGroup.add(rightArm);
+            const rightHoof = new THREE.Mesh(new THREE.SphereGeometry(0.11, 14, 14), hoofMaterial);
+            rightHoof.position.set(0.12, -0.12, 0);
+            rightArmGroup.add(rightHoof);
+            woolly.add(rightArmGroup);
+
+            // Legs
+            const legs = [];
+            [[-0.4, -0.75, 0.3], [0.4, -0.75, 0.3], [-0.4, -0.75, -0.3], [0.4, -0.75, -0.3]].forEach(pos => {
+                const legGroup = new THREE.Group();
+                const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.12, 0.4, 16), legMaterial);
+                legGroup.add(leg);
+                const hoof = new THREE.Mesh(new THREE.SphereGeometry(0.13, 16, 16), hoofMaterial);
+                hoof.position.y = -0.24;
+                hoof.scale.set(1.1, 0.65, 1.1);
+                legGroup.add(hoof);
+                legGroup.position.set(pos[0], pos[1], pos[2]);
+                legs.push(legGroup);
+                woolly.add(legGroup);
+            });
+
+            // Tail
+            const tailGroup = new THREE.Group();
+            tailGroup.position.set(0, 0.15, -0.95);
+            [[0, 0, 0, 0.22], [0.1, 0.08, -0.05, 0.16], [-0.1, 0.08, -0.05, 0.16]].forEach(pos => {
+                const fluff = new THREE.Mesh(new THREE.SphereGeometry(pos[3], 14, 14), woolMaterial);
+                fluff.position.set(pos[0], pos[1], pos[2]);
+                tailGroup.add(fluff);
+            });
+            woolly.add(tailGroup);
+
+            scene.add(woolly);
+            camera.position.set(0, 0.5, 5.5);
+            camera.lookAt(0, 0, 0);
+
+            // Animation
+            let time = 0;
+            function animate() {
+                requestAnimationFrame(animate);
+                time += 0.016;
+
+                // Dance animation
+                const danceTime = time * 4;
+                const danceBounce = Math.abs(Math.sin(danceTime)) * 0.25;
+                woolly.position.y = danceBounce;
+                woolly.rotation.z = Math.sin(time * 3) * 0.15;
+                woolly.rotation.y = Math.sin(time * 0.5) * 0.3;
+                bodyGroup.rotation.y = Math.sin(time * 2) * 0.2;
+                headGroup.rotation.z = Math.sin(time * 4) * 0.15;
+
+                // Ears bounce
+                earGroup.children[0].rotation.z = 0.5 + Math.sin(danceTime + 0.3) * 0.3;
+                earGroup.children[1].rotation.z = -0.5 + Math.sin(danceTime) * 0.3;
+
+                // Arms pumping
+                leftArmGroup.rotation.z = 0.3 + Math.sin(danceTime) * 0.6;
+                rightArmGroup.rotation.z = -0.3 + Math.sin(danceTime + Math.PI) * 0.6;
+
+                // Legs stepping
+                legs[0].rotation.x = Math.sin(danceTime) * 0.2;
+                legs[1].rotation.x = Math.sin(danceTime + Math.PI) * 0.2;
+
+                // Tail wagging
+                tailGroup.rotation.y = Math.sin(time * 8) * 0.5;
+
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+
+        // Initialize 3D Woolly when page loads
+        document.addEventListener('DOMContentLoaded', init3DWoolly);
     </script>
 </body>
 </html>
