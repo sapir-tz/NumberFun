@@ -1229,7 +1229,6 @@
         // Speak current word
         function speakCurrentWord() {
             const word = hebrewWords[currentWordIndex];
-            WoollySounds.playStar();
             if (wordAudioCache[word.audio]) {
                 wordAudioCache[word.audio].currentTime = 0;
                 wordAudioCache[word.audio].play().catch(e => console.log('Audio play failed:', e));
