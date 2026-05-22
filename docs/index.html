@@ -107,6 +107,7 @@
         .mode-icon.blue { background: linear-gradient(135deg, #A8C5DA, #B8D4E8); }
         .mode-icon.green { background: linear-gradient(135deg, #A8D5BA, #B8E4C8); }
         .mode-icon.orange { background: linear-gradient(135deg, #E8D4A8, #F0E0B8); }
+        .mode-icon.purple { background: linear-gradient(135deg, #C5A8DA, #D4B8E8); }
 
         .mode-label {
             font-size: clamp(20px, 5vw, 32px);
@@ -156,6 +157,55 @@
         #explore { background: linear-gradient(135deg, #E5F0F0, #E8E4F0); }
         #counting { background: linear-gradient(135deg, #E5F0E8, #F0EDE5); }
         #math { background: linear-gradient(135deg, #F0EDE5, #F0E8EC, #E8E4F0); }
+        #reading { background: linear-gradient(135deg, #F0E8F0, #E8E4F0, #F0F0E8); }
+
+        /* Reading Game Styles */
+        .word-display {
+            font-size: clamp(60px, 18vw, 120px);
+            font-weight: 800;
+            color: #5D4860;
+            direction: rtl;
+            text-align: center;
+            padding: 40px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+            min-width: 300px;
+        }
+
+        .word-display:active {
+            transform: scale(0.95);
+        }
+
+        .word-nav {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .nav-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: none;
+            font-size: 40px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            transition: transform 0.2s;
+            background: linear-gradient(135deg, #C5A8DA, #D4B8E8);
+        }
+
+        .nav-btn:active {
+            transform: scale(0.9);
+        }
+
+        .word-progress {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #8B7B9B;
+        }
 
         .header {
             width: 100%;
@@ -592,6 +642,10 @@
                 <div class="mode-icon orange">➕</div>
                 <div class="mode-label" id="labelAdd">Add</div>
             </div>
+            <div class="mode-btn" onclick="showScreen('reading')">
+                <div class="mode-icon purple">📖</div>
+                <div class="mode-label" id="labelRead">קריאה</div>
+            </div>
         </div>
     </div>
 
@@ -652,6 +706,23 @@
             </div>
         </div>
         <div class="answer-buttons" id="mathAnswers"></div>
+    </div>
+
+    <!-- Reading Game Screen -->
+    <div id="reading" class="screen">
+        <div class="header">
+            <button class="home-btn" onclick="showScreen('home')">🏠</button>
+            <div class="score" id="readingScore">0</div>
+            <button class="refresh-btn" onclick="shuffleWords()">🔀</button>
+        </div>
+        <div class="game-area">
+            <div class="word-display" id="wordDisplay" onclick="speakCurrentWord()">אמא</div>
+            <div class="word-nav">
+                <button class="nav-btn" onclick="prevWord()">◀</button>
+                <button class="nav-btn" onclick="nextWord()">▶</button>
+            </div>
+            <div class="word-progress" id="wordProgress">1 / 46</div>
+        </div>
     </div>
 
     <!-- Celebration Overlay -->
@@ -990,6 +1061,119 @@
         let mathScore = 0;
         let mathAnswer = 0;
 
+        // Hebrew words for reading game
+        const hebrewWords = [
+            { word: 'אמא', audio: 'ima' },
+            { word: 'יונתן', audio: 'yonatan' },
+            { word: 'אבא', audio: 'aba' },
+            { word: 'סבתא', audio: 'savta' },
+            { word: 'יאמה', audio: 'yama' },
+            { word: 'סבא', audio: 'saba' },
+            { word: 'מים', audio: 'mayim' },
+            { word: 'סיר', audio: 'sir' },
+            { word: 'מוצץ', audio: 'motzetz' },
+            { word: 'אמבטיה', audio: 'ambatya' },
+            { word: 'סיפור', audio: 'sipur' },
+            { word: 'גן', audio: 'gan' },
+            { word: 'טיול', audio: 'tiyul' },
+            { word: 'אוכל', audio: 'ochel' },
+            { word: 'נקניקיה', audio: 'naknikiya' },
+            { word: 'חיבוק', audio: 'hibuk' },
+            { word: 'נשיקה', audio: 'neshika' },
+            { word: 'פיפי', audio: 'pipi' },
+            { word: 'קקי', audio: 'kaki' },
+            { word: 'חיתול', audio: 'hitul' },
+            { word: 'מזלג', audio: 'mazleg' },
+            { word: 'אף', audio: 'af' },
+            { word: 'יד', audio: 'yad' },
+            { word: 'רגל', audio: 'regel' },
+            { word: 'גרביים', audio: 'garbayim' },
+            { word: 'נעליים', audio: 'naalayim' },
+            { word: 'כפיים', audio: 'kapayim' },
+            { word: 'בועות', audio: 'buot' },
+            { word: 'דייסון', audio: 'dyson' },
+            { word: 'בלון', audio: 'balon' },
+            { word: 'תות', audio: 'tut' },
+            { word: 'בית', audio: 'bayit' },
+            { word: 'קרקר', audio: 'kraker' },
+            { word: 'רוח', audio: 'ruach' },
+            { word: 'יונה', audio: 'yona' },
+            { word: 'גזר', audio: 'gezer' },
+            { word: 'עורב', audio: 'orev' },
+            { word: 'המבורגר', audio: 'hamburger' },
+            { word: 'חבר', audio: 'haver' },
+            { word: 'פוג׳י', audio: 'fuji' },
+            { word: 'כלב', audio: 'kelev' },
+            { word: 'חתול', audio: 'hatul' },
+            { word: 'בוקר', audio: 'boker' },
+            { word: 'ערב', audio: 'erev' },
+            { word: 'לילה', audio: 'layla' },
+            { word: 'לישון', audio: 'lishon' }
+        ];
+
+        let currentWordIndex = 0;
+        let readingScore = 0;
+        const wordAudioCache = {};
+
+        // Preload word audio files
+        function preloadWordAudio() {
+            hebrewWords.forEach(item => {
+                const audio = new Audio(`audio/words/he/${item.audio}.mp3`);
+                audio.load();
+                wordAudioCache[item.audio] = audio;
+            });
+        }
+
+        // Speak current word
+        function speakCurrentWord() {
+            const word = hebrewWords[currentWordIndex];
+            if (wordAudioCache[word.audio]) {
+                wordAudioCache[word.audio].currentTime = 0;
+                wordAudioCache[word.audio].play().catch(e => console.log('Audio play failed:', e));
+            }
+            WoollySounds.playPop();
+        }
+
+        // Next word
+        function nextWord() {
+            currentWordIndex = (currentWordIndex + 1) % hebrewWords.length;
+            updateWordDisplay();
+            speakCurrentWord();
+        }
+
+        // Previous word
+        function prevWord() {
+            currentWordIndex = (currentWordIndex - 1 + hebrewWords.length) % hebrewWords.length;
+            updateWordDisplay();
+            speakCurrentWord();
+        }
+
+        // Shuffle words
+        function shuffleWords() {
+            for (let i = hebrewWords.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [hebrewWords[i], hebrewWords[j]] = [hebrewWords[j], hebrewWords[i]];
+            }
+            currentWordIndex = 0;
+            updateWordDisplay();
+            speakCurrentWord();
+            WoollySounds.playQuestionSound();
+        }
+
+        // Update word display
+        function updateWordDisplay() {
+            const word = hebrewWords[currentWordIndex];
+            document.getElementById('wordDisplay').textContent = word.word;
+            document.getElementById('wordProgress').textContent = `${currentWordIndex + 1} / ${hebrewWords.length}`;
+        }
+
+        // Initialize reading game
+        function initReading() {
+            preloadWordAudio();
+            updateWordDisplay();
+            setTimeout(() => speakCurrentWord(), 300);
+        }
+
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             setLanguage(currentLang);
@@ -1003,6 +1187,7 @@
             if (screenId === 'counting') newCountingQuestion();
             if (screenId === 'math') newMathProblem();
             if (screenId === 'explore') resetExplore();
+            if (screenId === 'reading') initReading();
         }
 
         // Number Explore
