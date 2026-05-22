@@ -395,6 +395,153 @@
             75% { transform: rotate(10deg) translateY(-15px); }
         }
 
+        /* Woolly Sheep Mascot */
+        .woolly-container {
+            width: 280px;
+            height: 280px;
+            position: relative;
+        }
+
+        .woolly-container svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Pose 1: Celebrate Float */
+        .sheep-celebrate {
+            animation: celebrateFloat 2s ease-in-out infinite;
+        }
+
+        @keyframes celebrateFloat {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            25% { transform: translateY(-15px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(3deg); }
+            75% { transform: translateY(-18px) rotate(0deg); }
+        }
+
+        .celebrate-arm-left {
+            transform-origin: 45px 110px;
+            animation: celebrateArmLeft 2s ease-in-out infinite;
+        }
+
+        @keyframes celebrateArmLeft {
+            0%, 100% { transform: rotate(-20deg); }
+            25%, 75% { transform: rotate(-40deg); }
+            50% { transform: rotate(-20deg); }
+        }
+
+        .celebrate-arm-right {
+            transform-origin: 155px 110px;
+            animation: celebrateArmRight 2s ease-in-out infinite;
+        }
+
+        @keyframes celebrateArmRight {
+            0%, 100% { transform: rotate(20deg); }
+            25%, 75% { transform: rotate(40deg); }
+            50% { transform: rotate(20deg); }
+        }
+
+        /* Pose 2: Happy Bounce */
+        .sheep-happy-bounce {
+            animation: happyBounce 1.2s ease-in-out infinite;
+        }
+
+        @keyframes happyBounce {
+            0%, 100% { transform: translateY(0) scaleY(1) scaleX(1); }
+            40% { transform: translateY(-20px) scaleY(1.05) scaleX(0.98); }
+            60% { transform: translateY(-18px) scaleY(1.03) scaleX(0.99); }
+        }
+
+        .bounce-arm-left {
+            transform-origin: 38px 118px;
+            animation: bounceArmLeft 1.2s ease-in-out infinite;
+        }
+
+        @keyframes bounceArmLeft {
+            0%, 100% { transform: rotate(10deg); }
+            40%, 60% { transform: rotate(-35deg); }
+        }
+
+        .bounce-arm-right {
+            transform-origin: 162px 118px;
+            animation: bounceArmRight 1.2s ease-in-out infinite;
+        }
+
+        @keyframes bounceArmRight {
+            0%, 100% { transform: rotate(-10deg); }
+            40%, 60% { transform: rotate(35deg); }
+        }
+
+        /* Pose 3: Joyful Wiggle */
+        .sheep-joyful-wiggle {
+            animation: joyfulWiggle 1.5s ease-in-out infinite;
+        }
+
+        @keyframes joyfulWiggle {
+            0%, 100% { transform: rotate(-4deg); }
+            50% { transform: rotate(4deg); }
+        }
+
+        /* Pose 4: Soft Jump */
+        .sheep-soft-jump {
+            animation: softJump 1.8s ease-in-out infinite;
+        }
+
+        @keyframes softJump {
+            0% { transform: translateY(0) scaleY(1) scaleX(1); }
+            15% { transform: translateY(5px) scaleY(0.92) scaleX(1.08); }
+            45% { transform: translateY(-28px) scaleY(1.08) scaleX(0.95); }
+            70% { transform: translateY(-12px) scaleY(1.02) scaleX(0.98); }
+            100% { transform: translateY(0) scaleY(1) scaleX(1); }
+        }
+
+        .jump-arm-left {
+            transform-origin: 38px 118px;
+            animation: jumpArmLeft 1.8s ease-in-out infinite;
+        }
+
+        @keyframes jumpArmLeft {
+            0%, 100% { transform: rotate(10deg); }
+            15% { transform: rotate(20deg); }
+            45% { transform: rotate(-45deg); }
+            70% { transform: rotate(-15deg); }
+        }
+
+        .jump-arm-right {
+            transform-origin: 162px 118px;
+            animation: jumpArmRight 1.8s ease-in-out infinite;
+        }
+
+        @keyframes jumpArmRight {
+            0%, 100% { transform: rotate(-10deg); }
+            15% { transform: rotate(-20deg); }
+            45% { transform: rotate(45deg); }
+            70% { transform: rotate(15deg); }
+        }
+
+        .sparkles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .sparkle {
+            position: absolute;
+            font-size: 18px;
+            animation: sparkleGlow 2s ease-in-out infinite;
+        }
+
+        .sparkle:nth-child(1) { top: 5%; left: 10%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 8%; right: 10%; animation-delay: 0.5s; }
+        .sparkle:nth-child(3) { top: 28%; left: 2%; animation-delay: 1s; }
+        .sparkle:nth-child(4) { top: 22%; right: 2%; animation-delay: 0.3s; }
+
+        @keyframes sparkleGlow {
+            0%, 100% { opacity: 0.3; transform: scale(0.7); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
 
         .confetti {
             position: absolute;
@@ -509,7 +656,84 @@
 
     <!-- Celebration Overlay -->
     <div id="celebration" class="celebration">
-        <div class="celebration-emoji" id="celebrationEmoji">🕺</div>
+        <div class="woolly-container">
+            <div class="sparkles">
+                <span class="sparkle">⭐</span>
+                <span class="sparkle">✨</span>
+                <span class="sparkle">🌟</span>
+                <span class="sparkle">⭐</span>
+            </div>
+            <svg class="sheep-celebrate" viewBox="0 0 200 200">
+                <!-- Fluffy body -->
+                <ellipse cx="100" cy="125" rx="50" ry="40" fill="#F5F0E6"/>
+                <circle cx="55" cy="112" r="16" fill="#FFF8F0"/>
+                <circle cx="75" cy="98" r="14" fill="#FFF8F0"/>
+                <circle cx="100" cy="92" r="16" fill="#FFF8F0"/>
+                <circle cx="125" cy="98" r="14" fill="#FFF8F0"/>
+                <circle cx="145" cy="112" r="16" fill="#FFF8F0"/>
+                <circle cx="62" cy="135" r="13" fill="#FFF8F0"/>
+                <circle cx="138" cy="135" r="13" fill="#FFF8F0"/>
+                <circle cx="85" cy="148" r="12" fill="#FFF8F0"/>
+                <circle cx="115" cy="148" r="12" fill="#FFF8F0"/>
+
+                <!-- Right arm (behind body) -->
+                <g class="arm-right celebrate-arm-right">
+                    <ellipse cx="162" cy="100" rx="6" ry="14" fill="#FFD4C4" transform="rotate(35 162 100)"/>
+                    <ellipse cx="170" cy="90" rx="5" ry="4" fill="#FFBCAC" transform="rotate(35 170 90)"/>
+                </g>
+
+                <!-- Cute round head -->
+                <ellipse cx="100" cy="68" rx="35" ry="32" fill="#FFE8DC"/>
+
+                <!-- Extra fluffy top -->
+                <circle cx="75" cy="42" r="12" fill="#FFF8F0"/>
+                <circle cx="100" cy="36" r="14" fill="#FFF8F0"/>
+                <circle cx="125" cy="42" r="12" fill="#FFF8F0"/>
+                <circle cx="88" cy="45" r="10" fill="#FFF8F0"/>
+                <circle cx="112" cy="45" r="10" fill="#FFF8F0"/>
+
+                <!-- Fluffy cheeks -->
+                <circle cx="68" cy="65" r="9" fill="#FFF8F0"/>
+                <circle cx="132" cy="65" r="9" fill="#FFF8F0"/>
+
+                <!-- Cute floppy ears -->
+                <ellipse cx="58" cy="58" rx="10" ry="7" fill="#FFD4C4" transform="rotate(-25 58 58)"/>
+                <ellipse cx="142" cy="58" rx="10" ry="7" fill="#FFD4C4" transform="rotate(25 142 58)"/>
+                <ellipse cx="58" cy="58" rx="6" ry="4" fill="#FFBCAC" transform="rotate(-25 58 58)"/>
+                <ellipse cx="142" cy="58" rx="6" ry="4" fill="#FFBCAC" transform="rotate(25 142 58)"/>
+
+                <!-- Super happy closed eyes ^_^ -->
+                <path d="M 74 68 Q 82 58 90 68" stroke="#3D3D3D" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <path d="M 110 68 Q 118 58 126 68" stroke="#3D3D3D" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+                <!-- Rosy cheeks -->
+                <ellipse cx="65" cy="76" rx="10" ry="6" fill="#FFCDD2" opacity="0.9"/>
+                <ellipse cx="135" cy="76" rx="10" ry="6" fill="#FFCDD2" opacity="0.9"/>
+
+                <!-- Cute button nose -->
+                <ellipse cx="100" cy="78" rx="5" ry="4" fill="#FFAB91"/>
+                <ellipse cx="100" cy="77" rx="3" ry="2" fill="#FFCDBC" opacity="0.6"/>
+
+                <!-- Huge celebration smile -->
+                <path d="M 85 86 Q 100 102 115 86" stroke="#3D3D3D" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+                <!-- Little legs -->
+                <rect x="72" y="155" width="10" height="22" rx="5" fill="#FFD4C4"/>
+                <rect x="118" y="155" width="10" height="22" rx="5" fill="#FFD4C4"/>
+                <ellipse cx="77" cy="175" rx="6" ry="4" fill="#FFBCAC"/>
+                <ellipse cx="123" cy="175" rx="6" ry="4" fill="#FFBCAC"/>
+
+                <!-- Fluffy tail -->
+                <circle cx="150" cy="125" r="10" fill="#FFF8F0"/>
+                <circle cx="155" cy="120" r="7" fill="#FFF8F0"/>
+
+                <!-- Left arm (in front) -->
+                <g class="arm-left celebrate-arm-left">
+                    <ellipse cx="38" cy="100" rx="6" ry="14" fill="#FFD4C4" transform="rotate(-35 38 100)"/>
+                    <ellipse cx="30" cy="90" rx="5" ry="4" fill="#FFBCAC" transform="rotate(-35 30 90)"/>
+                </g>
+            </svg>
+        </div>
     </div>
 
     <script>
@@ -546,36 +770,158 @@
         // Audio playback using pre-recorded high-quality voices
         const audioCache = {};
 
-        // Web Audio for success sound
-        let audioContext = null;
+        // ═══════════════════════════════════════════════════════════════════
+        //                    WOOLLY SOUNDS - WEB AUDIO API
+        // ═══════════════════════════════════════════════════════════════════
+        // All sounds generated using Web Audio API - no audio files needed!
 
-        function playSuccessSound() {
-            if (!audioContext) {
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        let audioCtx = null;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             }
+            return audioCtx;
+        }
 
-            // Happy "ding ding ding" melody
+        // Celebration Sounds
+        function playYay() {
+            const ctx = getAudioContext();
+            const now = ctx.currentTime;
             const notes = [523, 659, 784, 1047]; // C5, E5, G5, C6
-            const duration = 0.15;
-
             notes.forEach((freq, i) => {
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-
-                oscillator.frequency.value = freq;
-                oscillator.type = 'sine';
-
-                const startTime = audioContext.currentTime + (i * 0.12);
-                gainNode.gain.setValueAtTime(0.3, startTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
-
-                oscillator.start(startTime);
-                oscillator.stop(startTime + duration);
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.type = 'sine';
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.3, now + i * 0.1);
+                gain.gain.setTargetAtTime(0.01, now + i * 0.1 + 0.15, 0.1);
+                osc.start(now + i * 0.1);
+                osc.stop(now + i * 0.1 + 0.3);
             });
         }
+
+        function playStar() {
+            const ctx = getAudioContext();
+            const now = ctx.currentTime;
+            for (let i = 0; i < 5; i++) {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.type = 'sine';
+                osc.frequency.value = 1200 + Math.random() * 800;
+                gain.gain.setValueAtTime(0.15, now + i * 0.05);
+                gain.gain.setTargetAtTime(0.01, now + i * 0.05 + 0.1, 0.05);
+                osc.start(now + i * 0.05);
+                osc.stop(now + i * 0.05 + 0.2);
+            }
+        }
+
+        function playHappyBaa() {
+            const ctx = getAudioContext();
+            const now = ctx.currentTime;
+            [0, 0.25].forEach((delay, idx) => {
+                const osc = ctx.createOscillator();
+                const vibrato = ctx.createOscillator();
+                const vibratoGain = ctx.createGain();
+                const gain = ctx.createGain();
+                vibrato.connect(vibratoGain);
+                vibratoGain.connect(osc.frequency);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.type = 'sine';
+                vibrato.type = 'sine';
+                vibrato.frequency.value = 10;
+                vibratoGain.gain.value = 20;
+                const baseFreq = idx === 0 ? 550 : 650;
+                osc.frequency.setValueAtTime(baseFreq, now + delay);
+                osc.frequency.linearRampToValueAtTime(baseFreq + 30, now + delay + 0.08);
+                osc.frequency.linearRampToValueAtTime(baseFreq - 40, now + delay + 0.18);
+                gain.gain.setValueAtTime(0.18, now + delay);
+                gain.gain.setTargetAtTime(0.01, now + delay + 0.15, 0.05);
+                vibrato.start(now + delay);
+                osc.start(now + delay);
+                osc.stop(now + delay + 0.25);
+                vibrato.stop(now + delay + 0.25);
+            });
+        }
+
+        function playPop() {
+            const ctx = getAudioContext();
+            const now = ctx.currentTime;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(800, now);
+            osc.frequency.exponentialRampToValueAtTime(400, now + 0.1);
+            gain.gain.setValueAtTime(0.25, now);
+            gain.gain.setTargetAtTime(0.01, now + 0.08, 0.03);
+            osc.start(now);
+            osc.stop(now + 0.15);
+        }
+
+        function playQuestionSound() {
+            const ctx = getAudioContext();
+            const now = ctx.currentTime;
+            // Gentle attention-getting sound
+            const notes = [659, 784]; // E5, G5
+            notes.forEach((freq, i) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.type = 'sine';
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.2, now + i * 0.12);
+                gain.gain.setTargetAtTime(0.01, now + i * 0.12 + 0.1, 0.05);
+                osc.start(now + i * 0.12);
+                osc.stop(now + i * 0.12 + 0.2);
+            });
+        }
+
+        function playHappyTune() {
+            const ctx = getAudioContext();
+            const now = ctx.currentTime;
+            // Simple happy melody
+            const melody = [
+                { freq: 523, time: 0 },     // C5
+                { freq: 587, time: 0.12 },  // D5
+                { freq: 659, time: 0.24 },  // E5
+                { freq: 784, time: 0.36 },  // G5
+                { freq: 659, time: 0.52 },  // E5
+                { freq: 784, time: 0.64 },  // G5
+            ];
+            melody.forEach(note => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.type = 'sine';
+                osc.frequency.value = note.freq;
+                gain.gain.setValueAtTime(0.2, now + note.time);
+                gain.gain.setTargetAtTime(0.01, now + note.time + 0.1, 0.05);
+                osc.start(now + note.time);
+                osc.stop(now + note.time + 0.2);
+            });
+            // Add sparkles
+            setTimeout(() => playStar(), 200);
+            setTimeout(() => playStar(), 500);
+        }
+
+        // WoollySounds API
+        const WoollySounds = {
+            playYay,
+            playStar,
+            playHappyBaa,
+            playHappyTune,
+            playPop,
+            playQuestionSound
+        };
 
         // Preload all audio files
         function preloadAudio() {
@@ -696,6 +1042,9 @@
 
             document.getElementById('countingQuestion').textContent = `${t.howMany} ${animal}?`;
 
+            // Play question sound
+            WoollySounds.playQuestionSound();
+
             const container = document.getElementById('animalsContainer');
             container.innerHTML = '';
             for (let i = 0; i < countingAnswer; i++) {
@@ -726,13 +1075,16 @@
         }
 
         function checkCountingAnswer(answer, btn) {
+            // Read the pressed number
+            speakNumber(answer);
+
             if (answer === countingAnswer) {
                 countingScore++;
                 document.getElementById('countingScore').textContent = countingScore;
-                celebrate();
+                setTimeout(() => celebrate(), 400);
             } else {
                 btn.classList.add('wrong');
-                speakTryAgain();
+                setTimeout(() => speakTryAgain(), 500);
                 setTimeout(() => btn.classList.remove('wrong'), 500);
             }
         }
@@ -745,6 +1097,9 @@
 
             document.getElementById('mathFirst').textContent = first;
             document.getElementById('mathSecond').textContent = second;
+
+            // Play question sound
+            WoollySounds.playQuestionSound();
 
             const obj = mathObjects[Math.floor(Math.random() * mathObjects.length)];
             const visualDiv = document.getElementById('equationVisual');
@@ -800,24 +1155,46 @@
         }
 
         function checkMathAnswer(answer, btn) {
+            // Read the pressed number
+            speakNumber(answer);
+
             if (answer === mathAnswer) {
                 mathScore++;
                 document.getElementById('mathScore').textContent = mathScore;
-                celebrate();
+                setTimeout(() => celebrate(), 400);
             } else {
                 btn.classList.add('wrong');
-                speakTryAgain();
+                setTimeout(() => speakTryAgain(), 500);
                 setTimeout(() => btn.classList.remove('wrong'), 500);
             }
         }
 
+        // Woolly poses for celebration
+        const woollyPoses = [
+            { body: 'sheep-celebrate', leftArm: 'celebrate-arm-left', rightArm: 'celebrate-arm-right' },
+            { body: 'sheep-happy-bounce', leftArm: 'bounce-arm-left', rightArm: 'bounce-arm-right' },
+            { body: 'sheep-joyful-wiggle', leftArm: '', rightArm: '' },
+            { body: 'sheep-soft-jump', leftArm: 'jump-arm-left', rightArm: 'jump-arm-right' }
+        ];
+
         // Celebration
         function celebrate() {
             const celebration = document.getElementById('celebration');
-            const emojiEl = document.getElementById('celebrationEmoji');
+            const woollySvg = celebration.querySelector('svg');
+            const leftArm = celebration.querySelector('.arm-left');
+            const rightArm = celebration.querySelector('.arm-right');
 
-            // Cute dancing rabbit
-            emojiEl.textContent = '🐰';
+            // Pick random pose
+            const pose = woollyPoses[Math.floor(Math.random() * woollyPoses.length)];
+
+            // Reset and apply new animation
+            woollySvg.className = pose.body;
+            if (leftArm) {
+                leftArm.className = 'arm-left ' + pose.leftArm;
+            }
+            if (rightArm) {
+                rightArm.className = 'arm-right ' + pose.rightArm;
+            }
 
             celebration.classList.add('active');
 
@@ -834,8 +1211,9 @@
                 celebration.appendChild(confetti);
             }
 
-            // Play happy sound
-            playSuccessSound();
+            // Play Woolly's happy tune
+            WoollySounds.playHappyTune();
+            WoollySounds.playHappyBaa();
 
             setTimeout(() => {
                 celebration.classList.remove('active');
