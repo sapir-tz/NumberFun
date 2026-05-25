@@ -304,6 +304,12 @@
             color: #8B7B9B;
         }
 
+        .word-picture {
+            font-size: clamp(80px, 25vw, 150px);
+            margin-bottom: 15px;
+            animation: bounce 0.5s ease-in-out infinite alternate;
+        }
+
         .header {
             width: 100%;
             display: flex;
@@ -846,13 +852,14 @@
             <button class="refresh-btn" onclick="shuffleWords()">🔀</button>
         </div>
         <div class="game-area">
+            <div class="word-picture" id="wordPicture">👩</div>
             <div class="word-display" id="wordDisplay">אמא</div>
             <button class="play-word-btn" onclick="speakCurrentWord()">▶️</button>
             <div class="word-nav">
                 <button class="nav-btn" onclick="prevWord()">◀</button>
                 <button class="nav-btn" onclick="nextWord()">▶</button>
             </div>
-            <div class="word-progress" id="wordProgress">1 / 46</div>
+            <div class="word-progress" id="wordProgress">1 / 51</div>
         </div>
     </div>
 
@@ -1117,57 +1124,57 @@
 
         // Hebrew words for reading game
         const hebrewWords = [
-            { word: 'אמא', audio: 'ima' },
-            { word: 'יונתן', audio: 'yonatan' },
-            { word: 'אבא', audio: 'aba' },
-            { word: 'סבתא', audio: 'savta' },
-            { word: 'יאמה', audio: 'yama' },
-            { word: 'סבא', audio: 'saba' },
-            { word: 'מים', audio: 'mayim' },
-            { word: 'סיר', audio: 'sir' },
-            { word: 'מוצץ', audio: 'motzetz' },
-            { word: 'אמבטיה', audio: 'ambatya' },
-            { word: 'סיפור', audio: 'sipur' },
-            { word: 'גן', audio: 'gan' },
-            { word: 'טיול', audio: 'tiyul' },
-            { word: 'אוכל', audio: 'ochel' },
-            { word: 'נקניקיה', audio: 'naknikiya' },
-            { word: 'חיבוק', audio: 'hibuk' },
-            { word: 'נשיקה', audio: 'neshika' },
-            { word: 'פיפי', audio: 'pipi' },
-            { word: 'קקי', audio: 'kaki' },
-            { word: 'חיתול', audio: 'hitul' },
-            { word: 'מזלג', audio: 'mazleg' },
-            { word: 'אף', audio: 'af' },
-            { word: 'יד', audio: 'yad' },
-            { word: 'רגל', audio: 'regel' },
-            { word: 'גרביים', audio: 'garbayim' },
-            { word: 'נעליים', audio: 'naalayim' },
-            { word: 'כפיים', audio: 'kapayim' },
-            { word: 'בועות', audio: 'buot' },
-            { word: 'דייסון', audio: 'dyson' },
-            { word: 'בלון', audio: 'balon' },
-            { word: 'תות', audio: 'tut' },
-            { word: 'בית', audio: 'bayit' },
-            { word: 'קרקר', audio: 'kraker' },
-            { word: 'רוח', audio: 'ruach' },
-            { word: 'יונה', audio: 'yona' },
-            { word: 'גזר', audio: 'gezer' },
-            { word: 'עורב', audio: 'orev' },
-            { word: 'המבורגר', audio: 'hamburger' },
-            { word: 'חבר', audio: 'haver' },
-            { word: 'פוג׳י', audio: 'fuji' },
-            { word: 'כלב', audio: 'kelev' },
-            { word: 'חתול', audio: 'hatul' },
-            { word: 'בוקר', audio: 'boker' },
-            { word: 'ערב', audio: 'erev' },
-            { word: 'לילה', audio: 'layla' },
-            { word: 'לישון', audio: 'lishon' },
-            { word: 'שמש', audio: 'shemesh' },
-            { word: 'ירח', audio: 'yareach' },
-            { word: 'מטוס', audio: 'matos' },
-            { word: 'תפוח', audio: 'tapuach' },
-            { word: 'ביצה', audio: 'beitza' }
+            { word: 'אמא', audio: 'ima', pic: '👩' },
+            { word: 'יונתן', audio: 'yonatan', pic: '👦' },
+            { word: 'אבא', audio: 'aba', pic: '👨' },
+            { word: 'סבתא', audio: 'savta', pic: '👵' },
+            { word: 'יאמה', audio: 'yama', pic: '👵' },
+            { word: 'סבא', audio: 'saba', pic: '👴' },
+            { word: 'מים', audio: 'mayim', pic: '💧' },
+            { word: 'סיר', audio: 'sir', pic: '🍲' },
+            { word: 'מוצץ', audio: 'motzetz', pic: '🍼' },
+            { word: 'אמבטיה', audio: 'ambatya', pic: '🛁' },
+            { word: 'סיפור', audio: 'sipur', pic: '📖' },
+            { word: 'גן', audio: 'gan', pic: '🌳' },
+            { word: 'טיול', audio: 'tiyul', pic: '🚶' },
+            { word: 'אוכל', audio: 'ochel', pic: '🍽️' },
+            { word: 'נקניקיה', audio: 'naknikiya', pic: '🌭' },
+            { word: 'חיבוק', audio: 'hibuk', pic: '🤗' },
+            { word: 'נשיקה', audio: 'neshika', pic: '💋' },
+            { word: 'פיפי', audio: 'pipi', pic: '🚽' },
+            { word: 'קקי', audio: 'kaki', pic: '💩' },
+            { word: 'חיתול', audio: 'hitul', pic: '👶' },
+            { word: 'מזלג', audio: 'mazleg', pic: '🍴' },
+            { word: 'אף', audio: 'af', pic: '👃' },
+            { word: 'יד', audio: 'yad', pic: '✋' },
+            { word: 'רגל', audio: 'regel', pic: '🦶' },
+            { word: 'גרביים', audio: 'garbayim', pic: '🧦' },
+            { word: 'נעליים', audio: 'naalayim', pic: '👟' },
+            { word: 'כפיים', audio: 'kapayim', pic: '👏' },
+            { word: 'בועות', audio: 'buot', pic: '🫧' },
+            { word: 'דייסון', audio: 'dyson', pic: '🧹' },
+            { word: 'בלון', audio: 'balon', pic: '🎈' },
+            { word: 'תות', audio: 'tut', pic: '🍓' },
+            { word: 'בית', audio: 'bayit', pic: '🏠' },
+            { word: 'קרקר', audio: 'kraker', pic: '🍘' },
+            { word: 'רוח', audio: 'ruach', pic: '💨' },
+            { word: 'יונה', audio: 'yona', pic: '🕊️' },
+            { word: 'גזר', audio: 'gezer', pic: '🥕' },
+            { word: 'עורב', audio: 'orev', pic: '🐦‍⬛' },
+            { word: 'המבורגר', audio: 'hamburger', pic: '🍔' },
+            { word: 'חבר', audio: 'haver', pic: '👫' },
+            { word: 'פוג׳י', audio: 'fuji', pic: '🐕' },
+            { word: 'כלב', audio: 'kelev', pic: '🐕' },
+            { word: 'חתול', audio: 'hatul', pic: '🐱' },
+            { word: 'בוקר', audio: 'boker', pic: '🌅' },
+            { word: 'ערב', audio: 'erev', pic: '🌆' },
+            { word: 'לילה', audio: 'layla', pic: '🌙' },
+            { word: 'לישון', audio: 'lishon', pic: '😴' },
+            { word: 'שמש', audio: 'shemesh', pic: '☀️' },
+            { word: 'ירח', audio: 'yareach', pic: '🌙' },
+            { word: 'מטוס', audio: 'matos', pic: '✈️' },
+            { word: 'תפוח', audio: 'tapuach', pic: '🍎' },
+            { word: 'ביצה', audio: 'beitza', pic: '🥚' }
         ];
 
         let currentWordIndex = 0;
@@ -1221,6 +1228,7 @@
         function updateWordDisplay() {
             const word = hebrewWords[currentWordIndex];
             document.getElementById('wordDisplay').textContent = word.word;
+            document.getElementById('wordPicture').textContent = word.pic;
             document.getElementById('wordProgress').textContent = `${currentWordIndex + 1} / ${hebrewWords.length}`;
         }
 
