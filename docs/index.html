@@ -124,6 +124,15 @@
             background: linear-gradient(135deg, #E5F0F0, #DFE9F3);
         }
 
+        #numbers-menu .header {
+            position: absolute;
+            top: max(20px, env(safe-area-inset-top));
+            left: 20px;
+            width: auto;
+            gap: 15px;
+            justify-content: flex-start;
+        }
+
         .submenu-title {
             font-size: clamp(32px, 8vw, 50px);
             font-weight: 800;
@@ -753,8 +762,6 @@
         </div>
         <div class="header">
             <button class="home-btn" onclick="showScreen('start')">🏠</button>
-            <div class="submenu-title">מספרים</div>
-            <div style="width: 60px;"></div>
         </div>
         <div class="game-modes">
             <div class="mode-btn" onclick="showScreen('explore')">
@@ -1548,7 +1555,9 @@
             const leftEyeWhite = new THREE.Mesh(new THREE.SphereGeometry(0.18, 24, 24), eyeWhiteMaterial);
             leftEyeWhite.position.set(-0.2, 0.05, 0.48); leftEyeWhite.scale.set(1, 1.1, 0.6);
             headGroup.add(leftEyeWhite);
-            headGroup.add(new THREE.Mesh(new THREE.SphereGeometry(0.13, 20, 20), eyeMaterial)).position.set(-0.19, 0.05, 0.54);
+            const leftPupil = new THREE.Mesh(new THREE.SphereGeometry(0.13, 20, 20), eyeMaterial);
+            leftPupil.position.set(-0.19, 0.05, 0.54);
+            headGroup.add(leftPupil);
             const leftHighlight = new THREE.Mesh(new THREE.SphereGeometry(0.045, 12, 12), eyeHighlightMaterial);
             leftHighlight.position.set(-0.15, 0.12, 0.62);
             headGroup.add(leftHighlight);
@@ -1556,7 +1565,9 @@
             const rightEyeWhite = new THREE.Mesh(new THREE.SphereGeometry(0.18, 24, 24), eyeWhiteMaterial);
             rightEyeWhite.position.set(0.2, 0.05, 0.48); rightEyeWhite.scale.set(1, 1.1, 0.6);
             headGroup.add(rightEyeWhite);
-            headGroup.add(new THREE.Mesh(new THREE.SphereGeometry(0.13, 20, 20), eyeMaterial)).position.set(0.19, 0.05, 0.54);
+            const rightPupil = new THREE.Mesh(new THREE.SphereGeometry(0.13, 20, 20), eyeMaterial);
+            rightPupil.position.set(0.19, 0.05, 0.54);
+            headGroup.add(rightPupil);
             const rightHighlight = new THREE.Mesh(new THREE.SphereGeometry(0.045, 12, 12), eyeHighlightMaterial);
             rightHighlight.position.set(0.23, 0.12, 0.62);
             headGroup.add(rightHighlight);
@@ -1584,14 +1595,18 @@
             leftArmGroup.position.set(-1.05, 0.15, 0.35);
             const leftArm = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.1, 0.35, 12), armMaterial);
             leftArm.rotation.z = 0.4; leftArmGroup.add(leftArm);
-            leftArmGroup.add(new THREE.Mesh(new THREE.SphereGeometry(0.11, 14, 14), hoofMaterial)).position.set(-0.12, -0.12, 0);
+            const leftHand = new THREE.Mesh(new THREE.SphereGeometry(0.11, 14, 14), hoofMaterial);
+            leftHand.position.set(-0.12, -0.12, 0);
+            leftArmGroup.add(leftHand);
             woolly.add(leftArmGroup);
 
             const rightArmGroup = new THREE.Group();
             rightArmGroup.position.set(1.05, 0.15, 0.35);
             const rightArm = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.1, 0.35, 12), armMaterial);
             rightArm.rotation.z = -0.4; rightArmGroup.add(rightArm);
-            rightArmGroup.add(new THREE.Mesh(new THREE.SphereGeometry(0.11, 14, 14), hoofMaterial)).position.set(0.12, -0.12, 0);
+            const rightHand = new THREE.Mesh(new THREE.SphereGeometry(0.11, 14, 14), hoofMaterial);
+            rightHand.position.set(0.12, -0.12, 0);
+            rightArmGroup.add(rightHand);
             woolly.add(rightArmGroup);
 
             // Legs
