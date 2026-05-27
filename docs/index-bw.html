@@ -75,20 +75,39 @@
             gap: 20px;
             width: clamp(160px, 42vw, 320px);
             height: clamp(200px, 50vw, 380px);
-            border-radius: 20px;
+            border-radius: 30px;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.15s;
             background: white;
-            border: 4px solid black;
+            border: 6px solid black;
+            animation: wiggle 3s ease-in-out infinite;
+        }
+
+        .category-btn:nth-child(2) {
+            animation-delay: 0.5s;
         }
 
         .category-btn:active {
-            transform: scale(0.95);
-            background: #eee;
+            transform: scale(0.9) rotate(-3deg);
+            background: #ddd;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
         }
 
         .category-icon {
             font-size: clamp(80px, 20vw, 140px);
+            animation: iconBounce 1s ease-in-out infinite;
+        }
+
+        .category-btn:nth-child(1) .category-icon { animation-delay: 0s; }
+        .category-btn:nth-child(2) .category-icon { animation-delay: 0.25s; }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.1); }
         }
 
         #numbers-menu .header {
@@ -129,8 +148,17 @@
             justify-content: center;
             font-size: clamp(60px, 15vw, 100px);
             background: white;
-            border: 4px solid black;
-            animation: pulse 2s ease-in-out infinite;
+            border: 6px solid black;
+            animation: bigPulse 1.5s ease-in-out infinite;
+        }
+
+        .mode-btn:nth-child(1) .mode-icon { animation-delay: 0s; }
+        .mode-btn:nth-child(2) .mode-icon { animation-delay: 0.3s; }
+        .mode-btn:nth-child(3) .mode-icon { animation-delay: 0.6s; }
+
+        @keyframes bigPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.12); }
         }
 
         .mode-label {
@@ -185,16 +213,22 @@
             text-align: center;
             padding: 50px;
             background: white;
-            border-radius: 20px;
-            border: 4px solid black;
+            border-radius: 30px;
+            border: 6px solid black;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.15s;
             min-width: 320px;
+            animation: wordPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes wordPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,0,0,0.3); }
+            50% { transform: scale(1.02); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
         }
 
         .word-display:active {
-            transform: scale(0.95);
-            background: #eee;
+            transform: scale(0.95) rotate(-2deg);
+            background: #ddd;
         }
 
         .word-nav {
@@ -207,33 +241,48 @@
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            border: 4px solid black;
+            border: 5px solid black;
             font-size: 50px;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.15s;
             background: white;
+            animation: navFloat 1.5s ease-in-out infinite;
+        }
+
+        .nav-btn:first-child { animation-delay: 0s; }
+        .nav-btn:last-child { animation-delay: 0.3s; }
+
+        @keyframes navFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
         .nav-btn:active {
-            transform: scale(0.9);
-            background: #eee;
+            transform: scale(0.85) rotate(-10deg);
+            background: #ccc;
         }
 
         .play-word-btn {
             width: 140px;
             height: 140px;
             border-radius: 50%;
-            border: 4px solid black;
+            border: 6px solid black;
             font-size: 70px;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.15s;
             background: white;
             margin: 20px 0;
+            animation: playBounce 1s ease-in-out infinite;
+        }
+
+        @keyframes playBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
         .play-word-btn:active {
-            transform: scale(0.9);
-            background: #eee;
+            transform: scale(0.9) rotate(5deg);
+            background: #ccc;
         }
 
         .word-progress {
@@ -255,19 +304,42 @@
             width: 70px;
             height: 70px;
             border-radius: 50%;
-            border: 3px solid black;
+            border: 4px solid black;
             font-size: 36px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.2s;
+            transition: transform 0.15s;
             background: white;
         }
 
+        .home-btn:hover, .refresh-btn:hover {
+            animation: buttonWiggle 0.3s ease-in-out;
+        }
+
+        @keyframes buttonWiggle {
+            0%, 100% { transform: rotate(0); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
         .home-btn:active, .refresh-btn:active {
-            transform: scale(0.9);
-            background: #eee;
+            transform: scale(0.85) rotate(-15deg);
+            background: #ccc;
+        }
+
+        .refresh-btn {
+            animation: refreshSpin 3s linear infinite;
+        }
+
+        @keyframes refreshSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .refresh-btn:active {
+            animation: none;
         }
 
         .score {
@@ -289,13 +361,14 @@
             font-size: clamp(120px, 35vw, 220px);
             font-weight: 800;
             color: black;
-            animation: bounce 0.5s ease-in-out infinite alternate;
+            animation: numberDance 0.6s ease-in-out infinite;
             margin: 20px 0;
+            text-shadow: 4px 4px 0 #ccc;
         }
 
-        @keyframes bounce {
-            from { transform: scale(1); }
-            to { transform: scale(1.1); }
+        @keyframes numberDance {
+            0%, 100% { transform: scale(1) rotate(-3deg); }
+            50% { transform: scale(1.15) rotate(3deg); }
         }
 
         .objects-display {
@@ -327,24 +400,47 @@
 
         .number-tile {
             aspect-ratio: 1;
-            border-radius: 15px;
-            border: 3px solid black;
+            border-radius: 20px;
+            border: 4px solid black;
             font-size: clamp(36px, 10vw, 60px);
             font-weight: 700;
             color: black;
             background: white;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.15s;
+            animation: tileFloat 2s ease-in-out infinite;
+        }
+
+        .number-tile:nth-child(1) { animation-delay: 0s; }
+        .number-tile:nth-child(2) { animation-delay: 0.15s; }
+        .number-tile:nth-child(3) { animation-delay: 0.3s; }
+        .number-tile:nth-child(4) { animation-delay: 0.45s; }
+        .number-tile:nth-child(5) { animation-delay: 0.6s; }
+        .number-tile:nth-child(6) { animation-delay: 0.75s; }
+        .number-tile:nth-child(7) { animation-delay: 0.9s; }
+        .number-tile:nth-child(8) { animation-delay: 1.05s; }
+        .number-tile:nth-child(9) { animation-delay: 1.2s; }
+        .number-tile:nth-child(10) { animation-delay: 1.35s; }
+
+        @keyframes tileFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
 
         .number-tile:active {
-            transform: scale(1.1);
-            background: #eee;
+            transform: scale(1.2) rotate(5deg);
+            background: #ddd;
         }
 
-        /* Alternate tiles for visual distinction */
+        /* Striped pattern for odd tiles */
         .number-tile:nth-child(odd) {
-            background: #f5f5f5;
+            background: repeating-linear-gradient(
+                45deg,
+                white,
+                white 5px,
+                #f0f0f0 5px,
+                #f0f0f0 10px
+            );
         }
 
         /* Counting & Math Games */
@@ -354,12 +450,19 @@
             color: black;
             text-align: center;
             margin: 10px 0;
+            animation: questionPop 0.5s ease-out;
+        }
+
+        @keyframes questionPop {
+            0% { transform: scale(0.5); opacity: 0; }
+            60% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .animals-container, .equation-visual {
             background: white;
-            border-radius: 20px;
-            border: 3px solid black;
+            border-radius: 30px;
+            border: 5px solid black;
             padding: 30px;
             margin: 20px 0;
             display: flex;
@@ -370,7 +473,22 @@
 
         .animal-item, .math-object {
             font-size: clamp(60px, 18vw, 100px);
-            animation: popIn 0.4s ease-out backwards;
+            animation: popInBounce 0.5s ease-out backwards;
+        }
+
+        @keyframes popInBounce {
+            0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+            60% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .animal-item {
+            animation: animalWiggle 1s ease-in-out infinite;
+        }
+
+        @keyframes animalWiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
         }
 
         .equation-text {
@@ -409,35 +527,64 @@
             width: clamp(100px, 25vw, 150px);
             height: clamp(100px, 25vw, 150px);
             border-radius: 50%;
-            border: 4px solid black;
+            border: 5px solid black;
             font-size: clamp(48px, 12vw, 75px);
             font-weight: 700;
             color: black;
             background: white;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.15s;
+            animation: answerBounce 1s ease-in-out infinite;
+        }
+
+        .answer-btn:nth-child(1) {
+            animation-delay: 0s;
+            background: repeating-linear-gradient(
+                0deg,
+                white,
+                white 4px,
+                #e8e8e8 4px,
+                #e8e8e8 8px
+            );
+        }
+        .answer-btn:nth-child(2) {
+            animation-delay: 0.2s;
+            background: repeating-linear-gradient(
+                90deg,
+                white,
+                white 4px,
+                #e8e8e8 4px,
+                #e8e8e8 8px
+            );
+        }
+        .answer-btn:nth-child(3) {
+            animation-delay: 0.4s;
+            background: radial-gradient(circle, #e8e8e8 2px, white 2px);
+            background-size: 10px 10px;
+        }
+
+        @keyframes answerBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
         }
 
         .answer-btn:active {
-            transform: scale(1.1);
-            background: #eee;
+            transform: scale(1.2) rotate(-5deg);
+            background: #ccc !important;
         }
 
         .answer-btn.wrong {
-            animation: gentleShake 0.4s ease-in-out;
-            background: #ddd;
+            animation: wrongShake 0.5s ease-in-out;
+            background: #bbb !important;
         }
 
-        @keyframes gentleShake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0) rotate(0); }
+            20% { transform: translateX(-10px) rotate(-5deg); }
+            40% { transform: translateX(10px) rotate(5deg); }
+            60% { transform: translateX(-10px) rotate(-5deg); }
+            80% { transform: translateX(10px) rotate(5deg); }
         }
-
-        /* Visual distinction for answer buttons */
-        .answer-btn:nth-child(1) { border-style: solid; }
-        .answer-btn:nth-child(2) { border-style: dashed; }
-        .answer-btn:nth-child(3) { border-style: dotted; border-width: 5px; }
 
         /* Celebration */
         .celebration {
@@ -446,41 +593,66 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.95);
             display: none;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             z-index: 100;
-            animation: fadeIn 0.3s ease-out;
+            animation: celebrationFlash 0.3s ease-out;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        @keyframes celebrationFlash {
+            0% { opacity: 0; background: black; }
+            30% { background: white; }
+            100% { opacity: 1; background: rgba(255,255,255,0.95); }
         }
 
         .celebration.active {
             display: flex;
         }
 
+        .celebration-text {
+            font-size: 60px;
+            font-weight: 800;
+            color: black;
+            animation: celebrateText 0.5s ease-out infinite alternate;
+            margin-top: 20px;
+        }
+
+        @keyframes celebrateText {
+            0% { transform: scale(1) rotate(-3deg); }
+            100% { transform: scale(1.1) rotate(3deg); }
+        }
+
         .confetti {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            font-size: 24px;
+            animation: confettiFall linear forwards;
+        }
+
+        .confetti.star::before { content: '★'; }
+        .confetti.circle::before { content: '●'; }
+        .confetti.diamond::before { content: '◆'; }
+        .confetti.heart::before { content: '♥'; }
+
+        @keyframes confettiFall {
+            0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+            100% { opacity: 0; transform: translateY(100vh) rotate(720deg) scale(0.5); }
+        }
+
+        .burst {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 3px solid black;
             border-radius: 50%;
-            background: black;
-            animation: gentleFall linear forwards;
+            animation: burstOut 0.6s ease-out forwards;
         }
 
-        /* Alternate confetti styles */
-        .confetti:nth-child(odd) {
-            background: white;
-            border: 2px solid black;
-        }
-
-        @keyframes gentleFall {
-            to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        @keyframes burstOut {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(8); opacity: 0; }
         }
 
         /* Prompt text */
@@ -640,6 +812,7 @@
     <!-- Celebration Overlay -->
     <div id="celebration" class="celebration">
         <div id="woolly-celebration-container"></div>
+        <div class="celebration-text" id="celebrationText">★ YAY! ★</div>
     </div>
 
     <script>
@@ -1120,14 +1293,34 @@
             showCelebrationWoolly();
             celebration.classList.add('active');
 
-            // B&W confetti
-            for (let i = 0; i < 20; i++) {
+            // Update celebration text
+            const celebrationTexts = currentLang === 'he'
+                ? ['★ יופי! ★', '★ מעולה! ★', '★ כל הכבוד! ★', '★ נהדר! ★']
+                : ['★ YAY! ★', '★ GREAT! ★', '★ WOW! ★', '★ SUPER! ★'];
+            document.getElementById('celebrationText').textContent =
+                celebrationTexts[Math.floor(Math.random() * celebrationTexts.length)];
+
+            // Add burst effects
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const burst = document.createElement('div');
+                    burst.className = 'burst';
+                    burst.style.left = (20 + Math.random() * 60) + '%';
+                    burst.style.top = (20 + Math.random() * 60) + '%';
+                    celebration.appendChild(burst);
+                }, i * 100);
+            }
+
+            // Fun confetti shapes
+            const shapes = ['star', 'circle', 'diamond', 'heart'];
+            for (let i = 0; i < 30; i++) {
                 const confetti = document.createElement('div');
-                confetti.className = 'confetti';
+                confetti.className = 'confetti ' + shapes[Math.floor(Math.random() * shapes.length)];
                 confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.top = '-10px';
-                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                confetti.style.animationDelay = Math.random() * 0.3 + 's';
+                confetti.style.top = '-30px';
+                confetti.style.animationDuration = (Math.random() * 1.5 + 1.5) + 's';
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                confetti.style.fontSize = (16 + Math.random() * 20) + 'px';
                 celebration.appendChild(confetti);
             }
 
@@ -1136,13 +1329,13 @@
 
             setTimeout(() => {
                 celebration.classList.remove('active');
-                celebration.querySelectorAll('.confetti').forEach(el => el.remove());
+                celebration.querySelectorAll('.confetti, .burst').forEach(el => el.remove());
                 hideCelebrationWoolly();
 
                 const currentScreen = document.querySelector('.screen.active').id;
                 if (currentScreen === 'counting') newCountingQuestion();
                 if (currentScreen === 'math') newMathProblem();
-            }, 1500);
+            }, 2000);
         }
 
         document.addEventListener('touchend', (e) => {
