@@ -75,39 +75,21 @@
             gap: 20px;
             width: clamp(160px, 42vw, 320px);
             height: clamp(200px, 50vw, 380px);
-            border-radius: 30px;
+            border-radius: 40px;
             cursor: pointer;
-            transition: transform 0.15s;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             background: white;
-            border: 6px solid black;
-            animation: wiggle 3s ease-in-out infinite;
-        }
-
-        .category-btn:nth-child(2) {
-            animation-delay: 0.5s;
+            border: 8px solid black;
+            box-shadow: 8px 8px 0 black;
         }
 
         .category-btn:active {
-            transform: scale(0.9) rotate(-3deg);
-            background: #ddd;
-        }
-
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(-2deg); }
-            50% { transform: rotate(2deg); }
+            transform: translate(4px, 4px);
+            box-shadow: 4px 4px 0 black;
         }
 
         .category-icon {
-            font-size: clamp(80px, 20vw, 140px);
-            animation: iconBounce 1s ease-in-out infinite;
-        }
-
-        .category-btn:nth-child(1) .category-icon { animation-delay: 0s; }
-        .category-btn:nth-child(2) .category-icon { animation-delay: 0.25s; }
-
-        @keyframes iconBounce {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-10px) scale(1.1); }
+            font-size: clamp(90px, 22vw, 160px);
         }
 
         #numbers-menu .header {
@@ -132,11 +114,6 @@
             align-items: center;
             gap: 15px;
             cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .mode-btn:active {
-            transform: scale(0.9);
         }
 
         .mode-icon {
@@ -149,27 +126,19 @@
             font-size: clamp(60px, 15vw, 100px);
             background: white;
             border: 6px solid black;
-            animation: bigPulse 1.5s ease-in-out infinite;
+            box-shadow: 6px 6px 0 black;
+            transition: all 0.15s ease;
         }
 
-        .mode-btn:nth-child(1) .mode-icon { animation-delay: 0s; }
-        .mode-btn:nth-child(2) .mode-icon { animation-delay: 0.3s; }
-        .mode-btn:nth-child(3) .mode-icon { animation-delay: 0.6s; }
-
-        @keyframes bigPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.12); }
+        .mode-btn:active .mode-icon {
+            transform: translate(3px, 3px);
+            box-shadow: 3px 3px 0 black;
         }
 
         .mode-label {
             font-size: clamp(24px, 6vw, 40px);
             font-weight: 700;
             color: black;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
         }
 
         /* Language Selector */
@@ -185,23 +154,25 @@
             width: 70px;
             height: 70px;
             border-radius: 50%;
-            border: 3px solid black;
+            border: 4px solid black;
             font-size: 36px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.2s;
+            transition: all 0.1s ease;
             background: white;
+            box-shadow: 4px 4px 0 black;
         }
 
         .lang-btn:active {
-            transform: scale(0.9);
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 black;
         }
 
         .lang-btn.active {
-            background: black;
-            border-width: 4px;
+            background: #ddd;
+            border-width: 5px;
         }
 
         /* Reading Game Styles */
@@ -214,21 +185,16 @@
             padding: 50px;
             background: white;
             border-radius: 30px;
-            border: 6px solid black;
+            border: 8px solid black;
             cursor: pointer;
-            transition: transform 0.15s;
+            transition: all 0.1s ease;
             min-width: 320px;
-            animation: wordPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes wordPulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,0,0,0.3); }
-            50% { transform: scale(1.02); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+            box-shadow: 8px 8px 0 black;
         }
 
         .word-display:active {
-            transform: scale(0.95) rotate(-2deg);
-            background: #ddd;
+            transform: translate(4px, 4px);
+            box-shadow: 4px 4px 0 black;
         }
 
         .word-nav {
@@ -244,22 +210,14 @@
             border: 5px solid black;
             font-size: 50px;
             cursor: pointer;
-            transition: transform 0.15s;
+            transition: all 0.1s ease;
             background: white;
-            animation: navFloat 1.5s ease-in-out infinite;
-        }
-
-        .nav-btn:first-child { animation-delay: 0s; }
-        .nav-btn:last-child { animation-delay: 0.3s; }
-
-        @keyframes navFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            box-shadow: 5px 5px 0 black;
         }
 
         .nav-btn:active {
-            transform: scale(0.85) rotate(-10deg);
-            background: #ccc;
+            transform: translate(3px, 3px);
+            box-shadow: 2px 2px 0 black;
         }
 
         .play-word-btn {
@@ -269,20 +227,15 @@
             border: 6px solid black;
             font-size: 70px;
             cursor: pointer;
-            transition: transform 0.15s;
+            transition: all 0.1s ease;
             background: white;
             margin: 20px 0;
-            animation: playBounce 1s ease-in-out infinite;
-        }
-
-        @keyframes playBounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            box-shadow: 6px 6px 0 black;
         }
 
         .play-word-btn:active {
-            transform: scale(0.9) rotate(5deg);
-            background: #ccc;
+            transform: translate(3px, 3px);
+            box-shadow: 3px 3px 0 black;
         }
 
         .word-progress {
@@ -310,50 +263,29 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.15s;
+            transition: all 0.1s ease;
             background: white;
-        }
-
-        .home-btn:hover, .refresh-btn:hover {
-            animation: buttonWiggle 0.3s ease-in-out;
-        }
-
-        @keyframes buttonWiggle {
-            0%, 100% { transform: rotate(0); }
-            25% { transform: rotate(-10deg); }
-            75% { transform: rotate(10deg); }
+            box-shadow: 4px 4px 0 black;
         }
 
         .home-btn:active, .refresh-btn:active {
-            transform: scale(0.85) rotate(-15deg);
-            background: #ccc;
-        }
-
-        .refresh-btn {
-            animation: refreshSpin 3s linear infinite;
-        }
-
-        @keyframes refreshSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .refresh-btn:active {
-            animation: none;
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 black;
         }
 
         .score {
             background: white;
             padding: 12px 30px;
             border-radius: 20px;
-            border: 3px solid black;
+            border: 4px solid black;
             font-size: 32px;
             font-weight: 700;
             color: black;
+            box-shadow: 4px 4px 0 black;
         }
 
         .score::before {
-            content: '* ';
+            content: '★ ';
         }
 
         /* Number Explore */
@@ -361,14 +293,19 @@
             font-size: clamp(120px, 35vw, 220px);
             font-weight: 800;
             color: black;
-            animation: numberDance 0.6s ease-in-out infinite;
             margin: 20px 0;
-            text-shadow: 4px 4px 0 #ccc;
+            text-shadow: 6px 6px 0 #888;
+            transition: transform 0.2s ease;
         }
 
-        @keyframes numberDance {
-            0%, 100% { transform: scale(1) rotate(-3deg); }
-            50% { transform: scale(1.15) rotate(3deg); }
+        .number-display.pop {
+            animation: numberPop 0.3s ease-out;
+        }
+
+        @keyframes numberPop {
+            0% { transform: scale(0.5); }
+            60% { transform: scale(1.15); }
+            100% { transform: scale(1); }
         }
 
         .objects-display {
@@ -401,46 +338,19 @@
         .number-tile {
             aspect-ratio: 1;
             border-radius: 20px;
-            border: 4px solid black;
+            border: 5px solid black;
             font-size: clamp(36px, 10vw, 60px);
             font-weight: 700;
             color: black;
             background: white;
             cursor: pointer;
-            transition: transform 0.15s;
-            animation: tileFloat 2s ease-in-out infinite;
-        }
-
-        .number-tile:nth-child(1) { animation-delay: 0s; }
-        .number-tile:nth-child(2) { animation-delay: 0.15s; }
-        .number-tile:nth-child(3) { animation-delay: 0.3s; }
-        .number-tile:nth-child(4) { animation-delay: 0.45s; }
-        .number-tile:nth-child(5) { animation-delay: 0.6s; }
-        .number-tile:nth-child(6) { animation-delay: 0.75s; }
-        .number-tile:nth-child(7) { animation-delay: 0.9s; }
-        .number-tile:nth-child(8) { animation-delay: 1.05s; }
-        .number-tile:nth-child(9) { animation-delay: 1.2s; }
-        .number-tile:nth-child(10) { animation-delay: 1.35s; }
-
-        @keyframes tileFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+            transition: all 0.1s ease;
+            box-shadow: 5px 5px 0 black;
         }
 
         .number-tile:active {
-            transform: scale(1.2) rotate(5deg);
-            background: #ddd;
-        }
-
-        /* Striped pattern for odd tiles */
-        .number-tile:nth-child(odd) {
-            background: repeating-linear-gradient(
-                45deg,
-                white,
-                white 5px,
-                #f0f0f0 5px,
-                #f0f0f0 10px
-            );
+            transform: translate(3px, 3px);
+            box-shadow: 2px 2px 0 black;
         }
 
         /* Counting & Math Games */
@@ -462,13 +372,14 @@
         .animals-container, .equation-visual {
             background: white;
             border-radius: 30px;
-            border: 5px solid black;
+            border: 6px solid black;
             padding: 30px;
             margin: 20px 0;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 15px;
+            box-shadow: 6px 6px 0 black;
         }
 
         .animal-item, .math-object {
@@ -483,12 +394,11 @@
         }
 
         .animal-item {
-            animation: animalWiggle 1s ease-in-out infinite;
+            transition: transform 0.15s ease;
         }
 
-        @keyframes animalWiggle {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
+        .animal-item:hover {
+            transform: scale(1.15);
         }
 
         .equation-text {
@@ -499,8 +409,9 @@
             background: white;
             padding: 20px 30px;
             border-radius: 15px;
-            border: 3px solid black;
+            border: 5px solid black;
             margin: 20px 0;
+            box-shadow: 5px 5px 0 black;
         }
 
         .equation-num {
@@ -527,63 +438,33 @@
             width: clamp(100px, 25vw, 150px);
             height: clamp(100px, 25vw, 150px);
             border-radius: 50%;
-            border: 5px solid black;
+            border: 6px solid black;
             font-size: clamp(48px, 12vw, 75px);
             font-weight: 700;
             color: black;
             background: white;
             cursor: pointer;
-            transition: transform 0.15s;
-            animation: answerBounce 1s ease-in-out infinite;
-        }
-
-        .answer-btn:nth-child(1) {
-            animation-delay: 0s;
-            background: repeating-linear-gradient(
-                0deg,
-                white,
-                white 4px,
-                #e8e8e8 4px,
-                #e8e8e8 8px
-            );
-        }
-        .answer-btn:nth-child(2) {
-            animation-delay: 0.2s;
-            background: repeating-linear-gradient(
-                90deg,
-                white,
-                white 4px,
-                #e8e8e8 4px,
-                #e8e8e8 8px
-            );
-        }
-        .answer-btn:nth-child(3) {
-            animation-delay: 0.4s;
-            background: radial-gradient(circle, #e8e8e8 2px, white 2px);
-            background-size: 10px 10px;
-        }
-
-        @keyframes answerBounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
+            transition: all 0.1s ease;
+            box-shadow: 6px 6px 0 black;
         }
 
         .answer-btn:active {
-            transform: scale(1.2) rotate(-5deg);
-            background: #ccc !important;
+            transform: translate(3px, 3px);
+            box-shadow: 3px 3px 0 black;
         }
 
         .answer-btn.wrong {
-            animation: wrongShake 0.5s ease-in-out;
-            background: #bbb !important;
+            animation: wrongShake 0.4s ease-in-out;
+            background: #ddd !important;
+            box-shadow: 3px 3px 0 #666 !important;
         }
 
         @keyframes wrongShake {
-            0%, 100% { transform: translateX(0) rotate(0); }
-            20% { transform: translateX(-10px) rotate(-5deg); }
-            40% { transform: translateX(10px) rotate(5deg); }
-            60% { transform: translateX(-10px) rotate(-5deg); }
-            80% { transform: translateX(10px) rotate(5deg); }
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-8px); }
+            80% { transform: translateX(8px); }
         }
 
         /* Celebration */
@@ -593,41 +474,54 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255,255,255,0.95);
+            background: white;
             display: none;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             z-index: 100;
-            animation: celebrationFlash 0.3s ease-out;
-        }
-
-        @keyframes celebrationFlash {
-            0% { opacity: 0; background: black; }
-            30% { background: white; }
-            100% { opacity: 1; background: rgba(255,255,255,0.95); }
         }
 
         .celebration.active {
             display: flex;
+            animation: celebrationPop 0.3s ease-out;
+        }
+
+        @keyframes celebrationPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .celebration-text {
-            font-size: 60px;
-            font-weight: 800;
+            font-size: 70px;
+            font-weight: 900;
             color: black;
-            animation: celebrateText 0.5s ease-out infinite alternate;
             margin-top: 20px;
+            text-shadow: 6px 6px 0 #888;
+            animation: celebrateTextBounce 0.5s ease-out;
         }
 
-        @keyframes celebrateText {
-            0% { transform: scale(1) rotate(-3deg); }
-            100% { transform: scale(1.1) rotate(3deg); }
+        @keyframes celebrateTextBounce {
+            0% { transform: scale(0.3); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .star-burst {
+            position: absolute;
+            font-size: 50px;
+            color: black;
+            animation: starBurst 0.6s ease-out forwards;
+        }
+
+        @keyframes starBurst {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            100% { transform: scale(1.5) rotate(180deg); opacity: 0; }
         }
 
         .confetti {
             position: absolute;
-            font-size: 24px;
+            font-size: 30px;
             animation: confettiFall linear forwards;
         }
 
@@ -637,22 +531,8 @@
         .confetti.heart::before { content: '♥'; }
 
         @keyframes confettiFall {
-            0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
-            100% { opacity: 0; transform: translateY(100vh) rotate(720deg) scale(0.5); }
-        }
-
-        .burst {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border: 3px solid black;
-            border-radius: 50%;
-            animation: burstOut 0.6s ease-out forwards;
-        }
-
-        @keyframes burstOut {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(8); opacity: 0; }
+            0% { opacity: 1; transform: translateY(0) rotate(0deg); }
+            100% { opacity: 0; transform: translateY(100vh) rotate(360deg); }
         }
 
         /* Prompt text */
@@ -1150,6 +1030,11 @@
             display.textContent = num;
             display.className = 'number-display';
 
+            // Trigger pop animation
+            display.classList.remove('pop');
+            void display.offsetWidth; // Force reflow
+            display.classList.add('pop');
+
             objectsDiv.innerHTML = '';
             const obj = objects[num - 1] || '⭐';
             for (let i = 0; i < num; i++) {
@@ -1300,27 +1185,34 @@
             document.getElementById('celebrationText').textContent =
                 celebrationTexts[Math.floor(Math.random() * celebrationTexts.length)];
 
-            // Add burst effects
-            for (let i = 0; i < 5; i++) {
+            // Add star bursts in corners
+            const positions = [
+                { left: '15%', top: '20%' },
+                { left: '85%', top: '20%' },
+                { left: '15%', top: '75%' },
+                { left: '85%', top: '75%' },
+                { left: '50%', top: '15%' }
+            ];
+            positions.forEach((pos, i) => {
                 setTimeout(() => {
-                    const burst = document.createElement('div');
-                    burst.className = 'burst';
-                    burst.style.left = (20 + Math.random() * 60) + '%';
-                    burst.style.top = (20 + Math.random() * 60) + '%';
-                    celebration.appendChild(burst);
-                }, i * 100);
-            }
+                    const star = document.createElement('div');
+                    star.className = 'star-burst';
+                    star.textContent = '★';
+                    star.style.left = pos.left;
+                    star.style.top = pos.top;
+                    celebration.appendChild(star);
+                }, i * 80);
+            });
 
-            // Fun confetti shapes
+            // Falling confetti shapes
             const shapes = ['star', 'circle', 'diamond', 'heart'];
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 20; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti ' + shapes[Math.floor(Math.random() * shapes.length)];
                 confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.top = '-30px';
-                confetti.style.animationDuration = (Math.random() * 1.5 + 1.5) + 's';
-                confetti.style.animationDelay = Math.random() * 0.5 + 's';
-                confetti.style.fontSize = (16 + Math.random() * 20) + 'px';
+                confetti.style.top = '-40px';
+                confetti.style.animationDuration = (Math.random() * 1 + 1.5) + 's';
+                confetti.style.animationDelay = Math.random() * 0.3 + 's';
                 celebration.appendChild(confetti);
             }
 
@@ -1329,7 +1221,7 @@
 
             setTimeout(() => {
                 celebration.classList.remove('active');
-                celebration.querySelectorAll('.confetti, .burst').forEach(el => el.remove());
+                celebration.querySelectorAll('.confetti, .star-burst').forEach(el => el.remove());
                 hideCelebrationWoolly();
 
                 const currentScreen = document.querySelector('.screen.active').id;
